@@ -1,0 +1,16 @@
+<header class="postHeader">
+  <h1>Nieuw bericht</h1>
+</header>
+<main class="post">
+  <section>
+    <form action="/post" method="post" enctype="multipart/form-data">
+      <label for="title">Titel:</label>
+      <input type="text" id="title" name="title" required />
+      <label for="message">Bericht:</label>
+      <textarea id="message" name="message" required></textarea>
+      <label for "image">Afbeelding:</label>
+      <input type="file" name="file">
+      <input type="submit" value="Plaats bericht" />
+    </form>
+  </section>
+</main>
