@@ -1,0 +1,28 @@
+<header>
+  <h1>Prikbord</h1>
+  <img src="{{avatar}}" alt="profielfoto" />
+</header>
+<main class="prikbord">
+  <section>
+    <ul>
+      {{#each allMessages}}
+        <li>
+          <article>
+            <h2>{{title}}</h2>
+            {{#if file}}
+              <img
+                src="/images/{{file}}"
+                alt="img"
+                width="200"
+                height="200"
+                style="background-image: url(/images/{{file}})"
+              />
+            {{/if}}
+            <p>{{message}}</p>
+          </article>
+        </li>
+      {{/each}}
+    </ul>
+    <a href="/post"><button>+</button></a>
+  </section>
+</main>

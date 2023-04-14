@@ -1,0 +1,15 @@
+<main class="timeline">
+  <section>
+    <form action="/" method="post">
+      <label for="title">Titel:</label>
+      <input type="text" id="title" name="title" required />
+      <label for="message">Bericht:</label>
+      <textarea id="message" name="message" required></textarea>
+      <input type="submit" value="Send Message" />
+    </form>
+  </section>
+  <section>
+    <h2>{{post.title}}</h2>
+    <p>{{post.message}}</p>
+  </section>
+</main>
