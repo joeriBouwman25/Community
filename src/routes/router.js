@@ -21,6 +21,7 @@ const router = express.Router();
 router
   .get("/", uiController.renderIndex)
   .get("/post", uiController.renderCreateAPost)
-  .post("/post", upload.single("file"), messageController.createMessageInDB);
+  .post("/post", upload.single("file"), messageController.createMessageInDB)
+  .get("/onboarding", uiController.startOnboarding);
 
 export default router;

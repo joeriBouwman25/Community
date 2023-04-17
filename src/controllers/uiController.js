@@ -7,6 +7,10 @@ export const renderIndex = async (req, res) => {
   });
 };
 
+export const startOnboarding = (req, res) => {
+  res.render("onboarding");
+};
+
 export const renderCreateAPost = async (req, res) => {
   const post = {
     title: req.body.title,

@@ -183,3 +183,60 @@ footer nav {
   background-color: #ffffffb5;
   background-blend-mode: color;
 }
+
+.onboarding button {
+  right: 0;
+  bottom: 56px;
+  position: fixed;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  color: #ffffff;
+  background-color: #007aff;
+  height: 56px;
+
+  padding: 16px;
+  font-size: 0.9rem;
+  min-width: 0;
+
+  min-height: 36px;
+  font-family: metropolis, sans-serif;
+  font-weight: bold;
+  line-height: 1.75;
+  border-radius: 32px;
+  border-style: none;
+  text-transform: none;
+}
+
+.onboarding section {
+  background-color: #0055b3;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.onboarding h1 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin: 2em 0 10px 0;
+}
+
+.onboarding h2 {
+  color: #fff;
+  font-weight: 500;
+  margin-top: 5em;
+}
+
+.onboarding section a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  align-self: flex-end;
+  margin: 16px;
+}
+
+.onboarding img {
+  opacity: 1;
+  transition: 0.5s;
+}
