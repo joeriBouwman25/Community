@@ -81,6 +81,7 @@ footer nav {
   word-break: break-word;
   margin-bottom: 16px;
   padding: 16px;
+  background-color: #f4f4f4;
 }
 
 .prikbord article header {
@@ -105,6 +106,16 @@ footer nav {
   object-fit: cover;
   border-radius: 50%;
   margin: 0 0 0 0.3em;
+}
+
+.prikbord article img {
+  width: 100%;
+  object-fit: contain;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #ffffffb5;
+  background-blend-mode: color;
+  background-position: center;
 }
 
 .prikbord p {
@@ -218,15 +229,6 @@ header img {
   object-fit: cover;
   border-radius: 50%;
   margin: 1em;
-}
-
-.prikbord article img {
-  width: 100%;
-  object-fit: contain;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: #ffffffb5;
-  background-blend-mode: color;
 }
 
 .onboarding button {
