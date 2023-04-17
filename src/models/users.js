@@ -5,9 +5,7 @@ const userSchema = new Schema({
   id: String,
   name: String,
   avatar: String,
-  admin: String,
+  admin: Boolean,
 });
 
-const Users = mongoose.model("users", userSchema);
-
-module.exports = Users;
+export const Users = mongoose.model("users", userSchema);

@@ -1,10 +1,24 @@
 import { Messages } from "../models/messages.js";
+import { Users } from "../models/users.js";
 
-export const renderIndex = async (req, res) => {
+export const renderIndex = (req, res) => {
+  res.render("index");
+};
+
+export const renderPrikbord = async (req, res) => {
+  const input = req.body.name;
+
+  const query = input.charAt(0).toUpperCase() + input.slice(1);
+
   const allMessages = await Messages.find({}).lean();
-  await res.render("prikbord", {
-    allMessages,
-  });
+  const currentUser = await Users.findOne({ name: query });
+
+  !currentUser
+    ? res.redirect("/")
+    : await res.render("prikbord", {
+        allMessages,
+        avatar: currentUser.avatar,
+      });
 };
 
 export const startOnboarding = (req, res) => {
@@ -12,10 +26,5 @@ export const startOnboarding = (req, res) => {
 };
 
 export const renderCreateAPost = async (req, res) => {
-  const post = {
-    title: req.body.title,
-    message: req.body.message,
-  };
-
-  res.render("post", post);
+  res.render("post");
 };

@@ -1,21 +1,20 @@
-<main class="timeline">
+<header>
+  <h1>Community</h1>
+</header>
+<main class="index">
   <section>
-    <form action="/" method="post">
-      <label for="title">Titel:</label>
-      <input type="text" id="title" name="title" required />
-      <label for="message">Bericht:</label>
-      <textarea id="message" name="message" required></textarea>
-      <input type="submit" value="Send Message" />
+    <h2>Samen sta je sterker!</h2>
+    <form value="hond" class="post" action="/" method="POST">
+      <label for="name">Gebruikersnaam:</label>
+      <input type="text" id="name" name="name" required />
+      <input type="submit" value="Welkom" />
     </form>
-  </section>
-  <section>
-    <h2>{{post.title}}</h2>
-    <p>{{post.message}}</p>
   </section>
   <footer>
     <nav>
-      <a href="/">Home</a>
-      <a href="/onboarding">Prikbord</a>
+      <a class="activeLink" href="/">Home</a>
+      <a href="/prikbord">Prikbord</a>
+      <a href="#">Chat</a>
       <a href="#">Profiel</a>
     </nav>
   </footer>

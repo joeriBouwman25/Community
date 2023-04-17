@@ -1,27 +1,18 @@
 import express from "express";
 import * as uiController from "../controllers/uiController.js";
 import * as messageController from "../controllers/messageController.js";
-
-import multer from "multer";
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "public/images");
-  },
-  filename: (req, file, cb) => {
-    const suffix = file.mimetype.split("/");
-    cb(null, `${file.fieldname}-${Date.now()}.${suffix[1]}`);
-  },
-});
-
-const upload = multer({ storage });
+import { upload } from "../controllers/multerController.js";
 
 const router = express.Router();
 
 router
   .get("/", uiController.renderIndex)
+  .post("/", uiController.renderPrikbord)
+
+  .get("/prikbord", uiController.renderPrikbord)
+
   .get("/post", uiController.renderCreateAPost)
-  .post("/post", upload.single("file"), messageController.createMessageInDB)
-  .get("/onboarding", uiController.startOnboarding);
+  .post("/post", upload.single("file"), messageController.createMessageInDB);
+// .get("/onboarding", uiController.startOnboarding);
 
 export default router;
