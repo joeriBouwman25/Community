@@ -1,9 +1,16 @@
 import { Messages } from "../models/messages.js";
 
-export const renderIndex = async (req, res) => {
+export const renderIndex = (req, res) => {
+  res.render("index");
+};
+
+export const renderPrikbord = async (req, res) => {
   const allMessages = await Messages.find({}).lean();
+  const user = req.session.user;
+
   await res.render("prikbord", {
     allMessages,
+    user,
   });
 };
 
@@ -12,10 +19,5 @@ export const startOnboarding = (req, res) => {
 };
 
 export const renderCreateAPost = async (req, res) => {
-  const post = {
-    title: req.body.title,
-    message: req.body.message,
-  };
-
-  res.render("post", post);
+  res.render("post");
 };

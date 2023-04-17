@@ -38,6 +38,15 @@ ul {
   list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+  color: #0055b3;
+}
+
+.activeLink {
+  color: #007aff;
+}
+
 footer nav {
   left: 0;
   width: 100%;
@@ -72,6 +81,34 @@ footer nav {
   word-break: break-word;
   margin-bottom: 16px;
   padding: 16px;
+}
+
+.prikbord article header {
+  background-image: none;
+  flex-wrap: nowrap;
+  z-index: 0;
+}
+.prikbord article h2 {
+  width: 100%;
+}
+
+.prikbord article h3 {
+  font-size: 0.9em;
+  color: #1f8d84;
+  font-weight: 600;
+  word-break: initial;
+}
+
+.prikbord article header img {
+  width: 1.5em;
+  height: 1.5em;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 0 0 0.3em;
+}
+
+.prikbord p {
+  padding: 1em 0;
 }
 
 .prikbord h2 {
@@ -175,6 +212,14 @@ footer nav {
   font-size: 1rem;
 }
 
+header img {
+  width: 3em;
+  height: 3em;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 1em;
+}
+
 .prikbord article img {
   width: 100%;
   object-fit: contain;
@@ -239,4 +284,27 @@ footer nav {
 .onboarding img {
   opacity: 1;
   transition: 0.5s;
+}
+
+.index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.index h2 {
+  margin: 1em;
+  font-size: 1.5em;
+  color: #1f8d84;
+}
+
+.index section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.index form {
+  display: flex;
+  flex-direction: column;
 }

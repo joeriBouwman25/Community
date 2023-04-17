@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 import "dotenv/config";
 import compression from "compression";
-// import session from "express-session";
+import session from "express-session";
 
 import router from "./src/routes/router.js";
 
@@ -36,13 +36,13 @@ app
   .engine(".hbs", engine({ extname: ".hbs" }))
   .set("view engine", ".hbs")
   .set("views", "views")
-  // .use(
-  //   session({
-  //     secret: "test",
-  //     resave: false,
-  //     saveUninitialized: true,
-  //   })
-  // )
+  .use(
+    session({
+      secret: "test",
+      resave: false,
+      saveUninitialized: true,
+    })
+  )
 
   .use(cors())
   .use(compression())

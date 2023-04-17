@@ -1,6 +1,6 @@
 <header>
   <h1>Prikbord</h1>
-  <img src="{{avatar}}" alt="profielfoto" />
+  <img src="/images/{{user.avatar}}" alt="profielfoto" />
 </header>
 <main class="prikbord">
   <section>
@@ -8,7 +8,11 @@
       {{#each allMessages}}
         <li>
           <article>
-            <h2>{{title}}</h2>
+            <header>
+              <h2>{{title}}</h2>
+              <h3>{{user}}</h3>
+              <img src="/images/{{avatar}}" alt="profielfoto" />
+            </header>
             {{#if file}}
               <img
                 src="/images/{{file}}"
@@ -28,7 +32,8 @@
   <footer>
     <nav>
       <a href="/">Home</a>
-      <a href="/onboarding">Prikbord</a>
+      <a class="activeLink" href="/prikbord">Prikbord</a>
+      <a href="/chat">Chat</a>
       <a href="#">Profiel</a>
     </nav>
   </footer>
