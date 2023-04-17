@@ -1,24 +1,17 @@
 import { Messages } from "../models/messages.js";
-import { Users } from "../models/users.js";
 
 export const renderIndex = (req, res) => {
   res.render("index");
 };
 
 export const renderPrikbord = async (req, res) => {
-  const input = req.body.name;
-
-  const query = input.charAt(0).toUpperCase() + input.slice(1);
-
   const allMessages = await Messages.find({}).lean();
-  const currentUser = await Users.findOne({ name: query });
+  const user = req.session.user;
 
-  !currentUser
-    ? res.redirect("/")
-    : await res.render("prikbord", {
-        allMessages,
-        avatar: currentUser.avatar,
-      });
+  await res.render("prikbord", {
+    allMessages,
+    user,
+  });
 };
 
 export const startOnboarding = (req, res) => {

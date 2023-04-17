@@ -83,6 +83,34 @@ footer nav {
   padding: 16px;
 }
 
+.prikbord article header {
+  background-image: none;
+  flex-wrap: nowrap;
+  z-index: 0;
+}
+.prikbord article h2 {
+  width: 100%;
+}
+
+.prikbord article h3 {
+  font-size: 0.9em;
+  color: #1f8d84;
+  font-weight: 600;
+  word-break: initial;
+}
+
+.prikbord article header img {
+  width: 1.5em;
+  height: 1.5em;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 0 0 0.3em;
+}
+
+.prikbord p {
+  padding: 1em 0;
+}
+
 .prikbord h2 {
   color: #007aff;
   font-size: 1.1rem;
