@@ -117,7 +117,44 @@ footer nav {
   margin-bottom: 10px;
 }
 
-.prikbord button {
+.prikbord article footer {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  border-top: 0.5px solid #6b7175;
+}
+
+.prikbord footer button {
+  border: none;
+  background-color: #fff;
+  color: #1f8d84;
+  margin: 1em 0.5em 0em 0.5em;
+  font-size: 1em;
+}
+
+.prikbord form {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 0.5em 0 0 0;
+}
+
+.prikbord form input[type="text"] {
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  margin: 0.3em;
+  padding: 0.5em;
+}
+
+.prikbord form input[type="submit"] {
+  border: none;
+  padding: 0.5em;
+  border-radius: 5px;
+  background-color: #007aff;
+  color: white;
+}
+
+.prikbord .newMessage {
   right: 0;
   bottom: 56px;
   position: fixed;

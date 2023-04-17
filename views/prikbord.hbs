@@ -23,11 +23,22 @@
               />
             {{/if}}
             <p>{{message}}</p>
+            <footer>
+              <button>Like</button>
+              <button>Reageer</button>
+              <button>Deel</button>
+              {{#if reaction}}
+                <form action="/prikbord">
+                  <input type="text" placeholder="Schrijf een reactie.." />
+                  <input type="submit" value="Verzend" />
+                </form>
+              {{/if}}
+            </footer>
           </article>
         </li>
       {{/each}}
     </ul>
-    <a href="/post"><button>+</button></a>
+    <a href="/post"><button class="newMessage">+</button></a>
   </section>
   <footer>
     <nav>
