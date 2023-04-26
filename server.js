@@ -24,14 +24,6 @@ const app = express();
 const server = createServer(app);
 export const io = new Server(server);
 
-io.on("connection", (socket) => {
-  io.emit("start", "user connected with websocket");
-
-  socket.on("disconnect", () => {
-    console.log("disconnected");
-  });
-});
-
 app
   .engine(".hbs", engine({ extname: ".hbs" }))
   .set("view engine", ".hbs")
@@ -58,3 +50,15 @@ mongoose
     server.listen(port, () => console.log(`Server launched on port ${port} 🚀`))
   )
   .catch((err) => console.log(err));
+
+io.on("connection", (socket) => {
+  console.log("connected van Iphone tot Blackberry📱");
+
+  socket.on("chat message", (data) => {
+    io.emit("chat message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("disconnected");
+  });
+});

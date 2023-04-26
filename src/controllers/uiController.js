@@ -1,11 +1,25 @@
-import { Messages } from "../models/messages.js";
+import * as database from "./databaseController.js";
 
 export const renderIndex = (req, res) => {
-  res.render("index");
+  res.render("index", { layout: "detail" });
+};
+
+export const startOnboarding = (req, res) => {
+  res.render("onboarding");
+};
+
+export const renderCreateAPost = async (req, res) => {
+  res.render("post", { layout: "detail" });
+};
+
+export const renderChat = async (req, res) => {
+  res.render("chat", {
+    user: req.session.user.name,
+  });
 };
 
 export const renderPrikbord = async (req, res) => {
-  const allMessages = await Messages.find({}).lean();
+  const allMessages = await database.findAllMessages();
   const user = req.session.user;
 
   await res.render("prikbord", {
@@ -14,10 +28,18 @@ export const renderPrikbord = async (req, res) => {
   });
 };
 
-export const startOnboarding = (req, res) => {
-  res.render("onboarding");
+export const renderGroups = async (req, res) => {
+  const groups = await database.findMyInterestGroups();
+  res.render("groups", {
+    groups,
+  });
 };
 
-export const renderCreateAPost = async (req, res) => {
-  res.render("post");
+export const renderProfile = async (req, res) => {
+  const user = req.session.user;
+  const groups = await database.findMyInterestGroups();
+  res.render("profile", {
+    user,
+    groups,
+  });
 };

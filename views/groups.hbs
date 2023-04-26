@@ -1,0 +1,28 @@
+<header>
+  <h1>Interesse Groepen</h1>
+</header>
+<main class="profile">
+  <section>
+    <div>
+      <h2>Mijn interesse groepen</h2>
+      <p>Notificaties</p>
+    </div>
+    <ul>
+      {{#each groups}}
+        <li>
+          <article>
+            <img src="/images/{{image}}" alt="" />
+            <div>
+              <h3>{{name}}</h3>
+              <p>{{members}} Leden</p>
+            </div>
+            <div>
+              <input type="checkbox" id={{name}} />
+              <label for={{name}}>Toggle</label>
+            </div>
+          </article>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+</main>

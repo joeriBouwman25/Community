@@ -6,6 +6,7 @@ const userSchema = new Schema({
   name: String,
   avatar: String,
   admin: Boolean,
+  groups: Array,
 });
 
 export const Users = mongoose.model("users", userSchema);
