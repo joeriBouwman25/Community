@@ -1,12 +1,8 @@
 <header>
   <h1>Interesse Groepen</h1>
 </header>
-<main class="profile">
+<main class="groups">
   <section>
-    <div>
-      <h2>Mijn interesse groepen</h2>
-      <p>Notificaties</p>
-    </div>
     <ul>
       {{#each groups}}
         <li>
@@ -16,10 +12,7 @@
               <h3>{{name}}</h3>
               <p>{{members}} Leden</p>
             </div>
-            <div>
-              <input type="checkbox" id={{name}} />
-              <label for={{name}}>Toggle</label>
-            </div>
+            <button>+</button>
           </article>
         </li>
       {{/each}}

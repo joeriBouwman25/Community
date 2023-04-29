@@ -197,13 +197,8 @@ footer nav a svg {
   height: 56px;
   padding: 0;
   font-size: 1.5rem;
-  min-width: 0;
-  box-shadow: 0px 3px 5px -6px rgba(0, 0, 0, 0.05),
-    0px 6px 10px 0px rgba(0, 0, 0, 0.05), 0px 1px 18px 0px rgba(0, 0, 0, 0.04);
+  box-shadow: 1px 2px 6px #00000029;
   min-height: 36px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   font-family: metropolis, sans-serif;
   font-weight: bold;
   line-height: 1.75;
@@ -453,7 +448,7 @@ header img {
 .index h2 {
   margin: 1em;
   font-size: 1.5em;
-  color: #1f8d84;
+  color: #0070ff;
 }
 
 .index section {
@@ -495,6 +490,15 @@ header img {
   border-radius: 6px;
   box-shadow: 1px 2px 6px #00000029;
   padding: 0.5em;
+}
+
+.chat span {
+  color: #93e2bb;
+  font-weight: 600;
+}
+
+#user {
+  opacity: 0;
 }
 
 .chat article h2 {
@@ -644,10 +648,9 @@ header img {
 }
 
 .profile label {
-  cursor: pointer;
   text-indent: -9999px;
-  width: 3.8em;
-  height: 1.8em;
+  width: 3.2em;
+  height: 2em;
   background-color: #1f8d84;
   display: block;
   border-radius: 100px;
@@ -657,10 +660,10 @@ header img {
 .profile label:after {
   content: "";
   position: absolute;
-  top: 5px;
+  top: 4.5px;
   left: 5px;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.4em;
+  height: 1.4em;
   background: #fff;
   border-radius: 90px;
   transition: 0.3s;
@@ -800,6 +803,62 @@ header img {
 
 .hidden {
   display: none !important;
+}
+
+.groups section {
+  padding: 0.5em;
+  background-color: #ffffff;
+  margin: 1em 0.5em;
+  border-radius: 6px;
+  box-shadow: 1px 2px 6px #00000029;
+}
+
+.groups img {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  margin-right: 0.5em;
+}
+.groups ul {
+  width: 100%;
+}
+
+.groups ul li article {
+  display: flex;
+  justify-content: flex-start;
+  background-color: #6ed0a0;
+  padding: 0.5em;
+  align-items: center;
+  border-radius: 10px;
+  margin: 0.7em 0;
+  box-shadow: 1px 2px 6px #00000029;
+}
+
+.groups article div {
+  width: 100%;
+}
+
+.groups ul li article h3 {
+  font-size: 1em;
+  color: #fff;
+  font-weight: 600;
+}
+
+.groups ul li article p {
+  font-size: 14px;
+  color: #080808;
+}
+
+.groups section article button {
+  border: none;
+  padding: 0.5em;
+  width: 2em;
+  height: 2em;
+  font-size: 1.2em;
+  background-color: #1f8d84;
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 1px 2px 6px #00000029;
 }
 
 @keyframes loading {
