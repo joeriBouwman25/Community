@@ -17,7 +17,10 @@ export const renderCreateAPost = async (req, res) => {
 };
 
 export const renderChat = async (req, res) => {
-  res.render("chat");
+  const user = req.session.user;
+  res.render("chat", {
+    user,
+  });
 };
 
 export const renderPrikbord = async (req, res) => {
