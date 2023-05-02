@@ -19,10 +19,12 @@
   },
   "homepage": "https://github.com/joeriBouwman25/Community#readme",
   "dependencies": {
+    "cookie-session": "^2.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^7.0.4",
     "express-session": "^1.17.3",
+    "memorystore": "^1.6.7",
     "mongoose": "^7.0.3",
     "multer": "^1.4.5-lts.1",
     "node-emoji": "^1.11.0",

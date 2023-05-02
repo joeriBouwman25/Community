@@ -13,7 +13,7 @@ const __dirname = path.dirname(__filename);
 
 import "dotenv/config";
 import compression from "compression";
-import session from "express-session";
+import cookieSession from "cookie-session";
 
 import router from "./src/routes/router.js";
 
@@ -29,10 +29,10 @@ app
   .set("view engine", ".hbs")
   .set("views", "views")
   .use(
-    session({
-      secret: "test",
+    cookieSession({
+      cookie: { maxAge: 86400000 },
+      secret: "secret",
       resave: false,
-      saveUninitialized: true,
     })
   )
 
