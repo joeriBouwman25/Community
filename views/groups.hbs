@@ -2,11 +2,19 @@
   <h1>Interesse Groepen</h1>
 </header>
 <main class="groups">
+  {{!-- <section>
+    <h2>Zoeken</h2>
+    <form action="#">
+      <input type="text">
+    </form>
+  </section> --}}
   <section>
+    <h2>Ontdekken</h2>
     <ul>
-      {{#each groups}}
+      {{#each allGroups}}
         <li>
-          <article>
+          <a href="/groups/{{name}}">
+            <article class="discover">
             <img src="/images/{{image}}" alt="" />
             <div>
               <h3>{{name}}</h3>
@@ -15,6 +23,26 @@
             <button>+</button>
           </article>
         </li>
+        </a>
+      {{/each}}
+    </ul>
+  </section>
+  <section>
+    <h2>Mijn Groepen</h2>
+    <ul>
+          {{#each myGroups}}
+        <li>
+          <a href="/groups/{{name}}">
+            <article>
+            <img src="/images/{{image}}" alt="" />
+            <div>
+              <h3>{{name}}</h3>
+              <p>{{members}} Leden</p>
+            </div>
+            <button>+</button>
+          </article>
+        </li>
+        </a>
       {{/each}}
     </ul>
   </section>

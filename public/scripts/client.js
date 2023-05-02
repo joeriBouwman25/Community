@@ -1,18 +1,19 @@
-// const element = document.querySelector(".door");
-
-// element.addEventListener("click", toggleDoor);
-
-// toggleDoor();
-
-// function toggleDoor() {
-//   element.classList.toggle("doorOpen");
-// }
-
 const socket = io();
 const chatForm = document.querySelector(".chatForm");
 const chatInput = document.querySelector(".chatInput");
 const ul = document.querySelector("ul");
 const user = document.getElementById("user");
+const loadingState = document.querySelector(".loading");
+const element = document.querySelector(".door");
+
+if (element) {
+  element.addEventListener("click", toggleDoor);
+  toggleDoor();
+
+  function toggleDoor() {
+    element.classList.toggle("doorOpen");
+  }
+}
 
 socket.on("start", (data) => {
   console.log(data);
@@ -49,10 +50,12 @@ export const displayMessage = (data) => {
   ul.scrollTo(0, document.body.scrollHeight + 3);
 };
 
-let stateCheck = setInterval(() => {
-  if (document.readyState === "complete") {
-    clearInterval(stateCheck);
-    document.querySelector(".hidden").classList.remove("hidden");
-    document.querySelector(".loading").classList.add("hidden");
-  }
-}, 100);
+if (loadingState) {
+  let stateCheck = setInterval(() => {
+    if (document.readyState === "complete") {
+      clearInterval(stateCheck);
+      document.querySelector(".hidden").classList.remove("hidden");
+      loadingState.classList.add("hidden");
+    }
+  }, 100);
+}

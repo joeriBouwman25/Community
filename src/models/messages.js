@@ -7,6 +7,7 @@ const messageSchema = new Schema({
   title: String,
   message: String,
   file: String,
+  group: String,
 });
 
 export const Messages = mongoose.model("messages", messageSchema);

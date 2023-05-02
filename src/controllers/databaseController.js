@@ -13,13 +13,28 @@ export const findUserforPrikBord = async (req, res) => {
 };
 
 export const findAllMessages = async (req, res) => {
+  const myGroups = req.session.user.groups;
   const allMessages = await Messages.find({}).lean();
-  return allMessages;
+  const myMessages = allMessages.filter((message) =>
+    myGroups.includes(message.group)
+  );
+  return myMessages;
 };
 
-export const findMyInterestGroups = async (req, res) => {
-  const myGroups = await Groups.find({}).lean();
+export const findAllGroups = async () => {
+  const allGroups = await Groups.find({}).lean();
+  return allGroups;
+};
+
+export const findMyInterestGroups = async (user) => {
+  const userGroups = user.groups;
+  const myGroups = await Groups.find({ name: userGroups }).lean();
   return myGroups;
+};
+
+export const findOneGroup = async (query) => {
+  const group = await Groups.findOne({ name: query }).lean();
+  return group;
 };
 
 export const createMessageInDB = async (req, res) => {
@@ -28,6 +43,7 @@ export const createMessageInDB = async (req, res) => {
     avatar: req.session.user.avatar,
     title: req.body.title,
     message: req.body.message,
+    group: req.body.group,
   };
 
   if (req.file) {

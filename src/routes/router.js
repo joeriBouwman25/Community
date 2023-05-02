@@ -10,11 +10,14 @@ router
   .get("/prikbord", uiController.renderPrikbord)
   .get("/post", uiController.renderCreateAPost)
   .get("/groups", uiController.renderGroups)
+  .get("/groups/*", uiController.renderGroupDetail)
   .get("/chat", uiController.renderChat)
   .get("/profile", uiController.renderProfile)
 
+  .get("/onboarding", uiController.renderOnboarding)
+  .get("/onboarding/*", uiController.renderOnboarding)
+
   .post("/", databaseController.findUserforPrikBord)
-  .post("/post", upload.single("file"), databaseController.createMessageInDB)
-  .get("/onboarding", uiController.startOnboarding);
+  .post("/post", upload.single("file"), databaseController.createMessageInDB);
 
 export default router;

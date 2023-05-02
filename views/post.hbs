@@ -21,7 +21,7 @@
       <fieldset>
         <label class="upload" for="image">
           <svg
-            height="40"
+            height="20"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
           ><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
@@ -32,6 +32,12 @@
         </label>
         <input id="image" type="file" name="file" />
       </fieldset>
+      <label for="group">Interesse groep</label>
+      <select name="group" id="group">
+        {{#each groups}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
       <input type="submit" value="Plaats bericht" />
     </form>
   </section>
