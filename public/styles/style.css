@@ -455,6 +455,12 @@ header img {
   height: 50%;
   object-fit: cover;
 }
+
+.contain {
+  object-fit: contain !important;
+  background-color: #d0ddcd;
+}
+
 .onboarding article h1 {
   color: #0070c0;
   font-size: 1.8rem;
@@ -553,12 +559,12 @@ header img {
 }
 
 .chat form {
-  background-color: #ffffffde;
   height: 5em;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1em;
+  margin-bottom: 2em;
 }
 
 .chat input[type="submit"] {
