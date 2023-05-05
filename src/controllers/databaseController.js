@@ -9,7 +9,7 @@ export const findUserforPrikBord = async (req, res) => {
 
   req.session.user = currentUser;
 
-  !currentUser ? res.redirect("/") : res.redirect("/prikbord");
+  !currentUser ? res.redirect("/") : res.redirect("/onboarding");
 };
 
 export const findAllMessages = async (req, res) => {
