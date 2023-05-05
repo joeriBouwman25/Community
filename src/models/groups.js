@@ -10,5 +10,3 @@ const groupSchema = new Schema({
 });
 
 export const Groups = mongoose.model("groups", groupSchema);
-
-[user_id: String,]
