@@ -18,6 +18,7 @@ router
   .get("/onboarding/*", uiController.renderOnboarding)
 
   .post("/", databaseController.findUserforPrikBord)
-  .post("/post", upload.single("file"), databaseController.createMessageInDB);
+  .post("/post", upload.single("file"), databaseController.createMessageInDB)
+  .post("/prikbord", databaseController.uploadGroups);
 
 export default router;

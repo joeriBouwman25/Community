@@ -1,0 +1,33 @@
+<main class="groups">
+  <section class="discover">
+    <h2>Meld je aan voor interesse groepen</h2>
+    <form action="/prikbord" method="post">
+    <ul class="chooseGroups">
+      {{#each allGroups}}
+        <li>
+          <article style="background-image: linear-gradient(27deg, {{color}}12 0%, #f2f2f2 51%);">
+            <img style="border-bottom: 2px solid {{color}}" src="/images/{{image}}" alt="" />
+            <div>
+              <h3 style="color: {{color}}">{{name}}</h3>
+              <p>{{members}} Leden</p>
+            </div>
+            <div class="description">
+                <p>{{description}}</p>
+            </div>
+            <label for="{{id}}">
+              <i id="joinIcon" class="fa-regular fa-heart-circle-plus"></i>
+              Geïntereseerd
+            </label>
+            <input type="checkbox" name="{{id}}" id="{{id}}" />
+          </article>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+  <footer>
+    <nav>
+        <input disabled id="startBtn" type="submit" value="Begin met Community">
+    </nav>
+  </footer>
+  </form>
+</main>

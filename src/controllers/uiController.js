@@ -4,8 +4,13 @@ export const renderIndex = (req, res) => {
   res.render("index", { layout: "detail" });
 };
 
-export const renderOnboarding = (req, res) => {
-  res.render(`${req.path.slice(1)}`, { layout: "detail" });
+export const renderOnboarding = async (req, res) => {
+  if (req.path === "/onboarding/chooseGroups") {
+    const allGroups = await database.findAllGroups();
+    res.render(`${req.path.slice(1)}`, { allGroups, layout: "detail" });
+  } else {
+    res.render(`${req.path.slice(1)}`, { layout: "detail" });
+  }
 };
 
 export const renderCreateAPost = async (req, res) => {
@@ -24,8 +29,18 @@ export const renderChat = async (req, res) => {
 };
 
 export const renderPrikbord = async (req, res) => {
-  const allMessages = await database.findAllMessages(req, res);
   const user = req.session.user;
+  const allMessages = await database.findAllMessages(req, res);
+  const myGroups = await database.findMyInterestGroups(user);
+
+  allMessages.forEach((message) => {
+    const group = myGroups.find((group) => group.id === message.group);
+    if (group) {
+      message.color = group.color;
+      message.name = group.name;
+    }
+  });
+  console.log(allMessages);
 
   await res.render("prikbord", {
     allMessages,
@@ -37,8 +52,12 @@ export const renderGroups = async (req, res) => {
   const user = req.session.user;
   const allGroups = await database.findAllGroups();
   const myGroups = await database.findMyInterestGroups(user);
+  const names = myGroups.map((group) => group.name);
+  const filteredGroups = allGroups.filter(
+    (groups) => !names.includes(groups.name)
+  );
   res.render("groups", {
-    allGroups,
+    filteredGroups,
     myGroups,
   });
 };

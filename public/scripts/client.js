@@ -5,6 +5,42 @@ const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const loadingState = document.querySelector(".loading");
 const element = document.querySelector(".door");
+const groupLabels = document.querySelectorAll(".chooseGroups label");
+const groupInputs = document.querySelectorAll(".chooseGroups input");
+
+const checkForm = () => {
+  const startButton = document.getElementById("startBtn");
+
+  // Check if any checkboxes are checked
+  const checked = Array.from(groupInputs).some((input) => input.checked);
+
+  // Disable submit button if no checkboxes are checked
+  if (!checked) {
+    startButton.disabled = true;
+    startButton.style.opacity = "0.5";
+  } else {
+    startButton.disabled = false;
+    startButton.style.opacity = "1";
+  }
+};
+
+if (groupLabels) {
+  groupInputs.forEach((input) => {
+    input.addEventListener("change", checkForm);
+  });
+
+  groupLabels.forEach((label) => {
+    label.addEventListener("click", () => {
+      if (label.className === "active") {
+        label.innerHTML = `<i id="joinIcon" class="fa-regular fa-heart-circle-plus"></i> Geïntereseerd`;
+        label.classList.remove("active");
+      } else {
+        label.innerHTML = `<i id="joinIcon" class="fa-solid fa-heart-circle-check"></i> Geïntereseerd`;
+        label.classList.add("active");
+      }
+    });
+  });
+}
 
 if (element) {
   element.addEventListener("click", toggleDoor);

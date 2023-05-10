@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { Groups } from "../models/groups.js";
 import { Users } from "../models/users.js";
 import { Messages } from "../models/messages.js";
@@ -28,7 +29,7 @@ export const findAllGroups = async () => {
 
 export const findMyInterestGroups = async (user) => {
   const userGroups = user.groups;
-  const myGroups = await Groups.find({ name: userGroups }).lean();
+  const myGroups = await Groups.find({ id: userGroups }).lean();
   return myGroups;
 };
 
@@ -54,4 +55,14 @@ export const createMessageInDB = async (req, res) => {
   if (test) {
     res.redirect("/prikbord");
   }
+};
+
+export const uploadGroups = async (req, res) => {
+  const groups = Object.keys(req.body);
+  await Users.updateOne(
+    { name: req.session.user.name },
+    { $set: { groups: groups } }
+  );
+
+  res.redirect("/prikbord");
 };

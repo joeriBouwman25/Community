@@ -1,4 +1,4 @@
-<header class="postHeader">
+<header class="detailHeader">
   <a href="/groups">
     <svg
       height="20"
@@ -16,11 +16,11 @@
     <img src="/images/{{group.image}}" alt="" />
     <article>
       <p>{{group.description}}</p>
-      <div class="toggle">
+      {{!-- <div class="toggle">
         <h3>Notificaties</h3>
         <input type="checkbox" id={{group.name}} />
         <label for={{group.name}}>Toggle</label>
-      </div>
+      </div> --}}
     </article>
     {{#if submitted}}
       <form action="">
