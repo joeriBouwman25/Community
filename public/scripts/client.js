@@ -4,9 +4,19 @@ const chatInput = document.querySelector(".chatInput");
 const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const loadingState = document.querySelector(".loading");
-const element = document.querySelector(".door");
 const groupLabels = document.querySelectorAll(".chooseGroups label");
 const groupInputs = document.querySelectorAll(".chooseGroups input");
+const tabs = document.querySelectorAll("footer nav a");
+
+const current = window.location.href;
+
+if (tabs) {
+  tabs.forEach((tab) => {
+    if (current === tab.href) {
+      tab.classList.add("activeLink");
+    }
+  });
+}
 
 const checkForm = () => {
   const startButton = document.getElementById("startBtn");
@@ -42,15 +52,6 @@ if (groupLabels) {
   });
 }
 
-if (element) {
-  element.addEventListener("click", toggleDoor);
-  toggleDoor();
-
-  function toggleDoor() {
-    element.classList.toggle("doorOpen");
-  }
-}
-
 socket.on("start", (data) => {
   console.log(data);
 });
@@ -72,7 +73,7 @@ if (chatForm)
 export const displayMessage = (data) => {
   const li = document.createElement("li");
   li.innerHTML = `
-      <p><span>${data.user}:</span></p>
+      <h3><span>${data.user}</h3>
       <p>${data.value}</p>
       `;
   if (user.textContent === data.user) {
@@ -83,7 +84,7 @@ export const displayMessage = (data) => {
   ul.appendChild(li);
 
   // scroll to the bottom
-  ul.scrollTo(0, document.body.scrollHeight + 3);
+  window.scrollTo(0, document.body.scrollHeight + 15);
 };
 
 if (loadingState) {

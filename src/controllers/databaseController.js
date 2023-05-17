@@ -9,8 +9,13 @@ export const findUserforPrikBord = async (req, res) => {
   const currentUser = await Users.findOne({ name: query });
 
   req.session.user = currentUser;
-
-  !currentUser ? res.redirect("/") : res.redirect("/onboarding");
+  if (!currentUser) {
+    res.redirect("/");
+  } else if (currentUser.groups) {
+    res.redirect("/prikbord");
+  } else {
+    res.redirect("/onboarding");
+  }
 };
 
 export const findAllMessages = async (req, res) => {
@@ -59,6 +64,7 @@ export const createMessageInDB = async (req, res) => {
 
 export const uploadGroups = async (req, res) => {
   const groups = Object.keys(req.body);
+  console.log(groups);
   await Users.updateOne(
     { name: req.session.user.name },
     { $set: { groups: groups } }

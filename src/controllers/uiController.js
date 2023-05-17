@@ -1,6 +1,7 @@
 import * as database from "./databaseController.js";
 
 export const renderIndex = (req, res) => {
+  req.session = null;
   res.render("index", { layout: "detail" });
 };
 
@@ -14,9 +15,10 @@ export const renderOnboarding = async (req, res) => {
 };
 
 export const renderCreateAPost = async (req, res) => {
-  const groups = req.session.user.groups;
+  const user = req.session.user;
+  const myGroups = await database.findMyInterestGroups(user);
   res.render("post", {
-    groups,
+    myGroups,
     layout: "detail",
   });
 };

@@ -34,8 +34,8 @@
       </fieldset>
       <label for="group">Interesse groep</label>
       <select name="group" id="group">
-        {{#each groups}}
-          <option value="{{this}}">{{this}}</option>
+        {{#each myGroups}}
+          <option value="{{id}}">{{name}}</option>
         {{/each}}
       </select>
       <input type="submit" value="Plaats bericht" />
