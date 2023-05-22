@@ -1,3 +1,4 @@
+import { Messages } from "../models/messages.js";
 import * as database from "./databaseController.js";
 
 export const renderIndex = (req, res) => {
@@ -41,12 +42,26 @@ export const renderPrikbord = async (req, res) => {
       message.color = group.color;
       message.name = group.name;
     }
+    if (message.user === user.name) {
+      message.editable = true;
+    }
   });
-  console.log(allMessages);
 
   await res.render("prikbord", {
     allMessages,
     user,
+  });
+};
+
+export const renderReactionPage = async (req, res) => {
+  const id = req.path.split("/").pop();
+  const message = await Messages.findOne({
+    _id: id,
+  }).lean();
+
+  res.render("reactions", {
+    message,
+    layout: "detail",
   });
 };
 

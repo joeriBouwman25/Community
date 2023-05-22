@@ -44,6 +44,8 @@
 </section>
 
 <main class="prikbord hidden">
+  <button class="hidden" id="newMessage">Nieuw bericht
+    <i class="fa-solid fa-arrow-up-long"></i></button>
   <section>
     <ul>
       {{#each allMessages}}
@@ -53,21 +55,38 @@
               <img src="/images/{{avatar}}" alt="profielfoto" />
               <h3>{{user}}</h3>
               <p style="color: {{color}}">{{name}}</p>
+              {{#if editable}}
+                <i id="editable" class="fa-light fa-ellipsis-vertical"></i>
+                <nav class="editable hidden">
+                  <ul id="edit">
+                    <li><i class="fa-regular fa-pencil"></i> Bewerken</li>
+                    <li><i class="fa-regular fa-trash-can"></i>
+                      Verwijderen</li>
+                  </ul>
+                </nav>
+              {{/if}}
             </header>
             <h2>{{title}}</h2>
             {{#if file}}
               <img src="/images/{{file}}" alt="img" width="200" height="200" />
             {{/if}}
             <p>{{message}}</p>
+            {{#if reactions}}
+              <a class="reactionCount" href="/reactions/{{_id}}">
+                <p class="reactionCount">{{reactions.length}} reacties</p>
+              </a>
+            {{/if}}
             <footer>
-              <button>Like</button>
-              <button>Reageer</button>
-              {{#if reaction}}
-                <form action="/prikbord">
-                  <input type="text" placeholder="Schrijf een reactie.." />
-                  <input type="submit" value="Verzend" />
-                </form>
-              {{/if}}
+              <label class="likes" for="">
+                <i class="fa-regular fa-thumbs-up"></i>
+                <p>3</p>
+              </label>
+              <a href="/reactions/{{_id}}">
+                <label for="">
+                  <i class="fa-regular fa-message"></i>
+                  Reageer
+                </label>
+              </a>
             </footer>
           </article>
         </li>

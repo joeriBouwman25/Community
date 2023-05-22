@@ -1,12 +1,75 @@
 const socket = io();
-const chatForm = document.querySelector(".chatForm");
-const chatInput = document.querySelector(".chatInput");
+
 const ul = document.querySelector("ul");
 const user = document.getElementById("user");
-const loadingState = document.querySelector(".loading");
-const groupLabels = document.querySelectorAll(".chooseGroups label");
-const groupInputs = document.querySelectorAll(".chooseGroups input");
 const tabs = document.querySelectorAll("footer nav a");
+
+const upButton = document.getElementById("newMessage");
+if (upButton) {
+  upButton.addEventListener("click", () => {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+    upButton.classList.add("hidden");
+  });
+}
+
+socket.on("new post", (post) => {
+  const content = `<li><article>
+  <header>
+    <img src="/images/${post.avatar}" alt="profielfoto" />
+    <h3>${post.user}</h3>
+  </header>
+  <h2>${post.title}</h2>
+  <p>${post.message}</p>
+  <footer>
+    <label class="likes" for="">
+      <i class="fa-regular fa-thumbs-up"></i>
+      <p>3</p>
+    </label>
+    <a href="/reactions/${post.title}">
+      <label for="">
+        <i class="fa-regular fa-message"></i>
+        Reageer
+      </label>
+    </a>
+  </footer>
+</article></li>`;
+  upButton.classList.remove("hidden");
+
+  ul.insertAdjacentHTML("beforeend", content);
+});
+
+const editButtons = document.querySelectorAll("#editable");
+if (editButtons) {
+  editButtons.forEach((button, index) =>
+    button.addEventListener("click", () => {
+      const menu = document.getElementsByClassName("editable");
+      menu[index].classList.toggle("hidden");
+    })
+  );
+}
+
+const likeButtons = document.querySelectorAll("footer .likes");
+if (likeButtons) {
+  likeButtons.forEach((likeButton) => {
+    const icon = likeButton.querySelector("i");
+    const likes = likeButton.querySelector("p");
+    likeButton.addEventListener("click", () => {
+      if (icon.className === "fa solid fa-thumbs-up") {
+        icon.className = "fa-regular fa-thumbs-up";
+        icon.style.color = "#607d8b";
+        likes.textContent--;
+      } else {
+        icon.className = "fa solid fa-thumbs-up";
+        icon.style.color = "#007aff";
+        likes.textContent++;
+      }
+    });
+  });
+}
 
 const current = window.location.href;
 
@@ -34,6 +97,8 @@ const checkForm = () => {
   }
 };
 
+const groupLabels = document.querySelectorAll(".chooseGroups label");
+const groupInputs = document.querySelectorAll(".chooseGroups input");
 if (groupLabels) {
   groupInputs.forEach((input) => {
     input.addEventListener("change", checkForm);
@@ -60,6 +125,8 @@ socket.on("chat message", (data) => {
   displayMessage(data);
 });
 
+const chatForm = document.querySelector(".chatForm");
+const chatInput = document.querySelector(".chatInput");
 if (chatForm)
   chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -87,6 +154,7 @@ export const displayMessage = (data) => {
   window.scrollTo(0, document.body.scrollHeight + 15);
 };
 
+const loadingState = document.querySelector(".loading");
 if (loadingState) {
   let stateCheck = setInterval(() => {
     if (document.readyState === "complete") {
@@ -96,3 +164,43 @@ if (loadingState) {
     }
   }, 100);
 }
+
+// const showMore = document.getElementById("textContainer");
+// if (showMore) {
+//   showMoreOrLessText("textContainer", 80);
+// }
+
+// function showMoreOrLessText(containerId, characterLimit) {
+//   const container = document.getElementById(containerId);
+//   const content = container.innerHTML;
+
+//   if (content.length > characterLimit) {
+//     const truncatedContent = content.slice(0, characterLimit);
+//     const showMoreButton = document.createElement("button");
+//     showMoreButton.textContent = "Show More";
+//     showMoreButton.addEventListener("click", () => {
+//       container.innerHTML === content
+//         ? (container.innerHTML = truncatedContent)
+//         : (container.innerHTML = content);
+//     });
+
+//     container.innerHTML = truncatedContent;
+//   }
+//   container.appendChild(showMoreButton);
+// }
+
+const groupTab = document.querySelectorAll(".tab");
+const tabContents = document.querySelectorAll(".tab-content");
+groupTab.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    // Remove active class from all tabs and tab contents
+    groupTab.forEach((tab) => tab.classList.remove("active"));
+    tabContents.forEach((content) => content.classList.remove("active"));
+
+    // Add active class to clicked tab and corresponding tab content
+    const tabId = tab.id.replace("tab", "content");
+    const tabContent = document.getElementById(tabId);
+    tab.classList.add("active");
+    tabContent.classList.add("active");
+  });
+});

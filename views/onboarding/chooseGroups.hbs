@@ -1,7 +1,7 @@
 <main class="onboarding-groups groups">
   <section class="discover">
     <h2>Meld je aan voor interesse groepen</h2>
-    <form action="/prikbord" method="post">
+    <form action="/onboarding/chooseGroups" method="post">
     <ul class="chooseGroups">
       {{#each allGroups}}
         <li>
@@ -12,7 +12,7 @@
               <p>{{members}} Leden</p>
             </div>
             <div class="description">
-                <p>{{description}}</p>
+                <p id="textContainer">{{description}}</p>
             </div>
             <label for="{{id}}">
               <i id="joinIcon" class="fa-regular fa-heart-circle-plus"></i>

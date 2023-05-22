@@ -5,6 +5,7 @@
 
   --background-color: #ffffff;
   --backdrop-shadow: 1px 1px 6px #0000000f;
+  --divider: 0.5px solid #6b717526;
 }
 
 * {
@@ -130,6 +131,28 @@ article {
   padding: 1em;
 }
 
+#newMessage {
+  display: flex;
+  align-items: center;
+  padding: 1em;
+  font-size: 0.9rem;
+  background-color: #1f8d84d6;
+  border: none;
+  border-radius: 30px;
+  color: #fff;
+  position: fixed;
+  z-index: 300;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, 0);
+  box-shadow: var(--backdrop-shadow);
+}
+
+#newMessage i {
+  font-size: 0.9rem;
+  margin: 0 0 0 0.3em;
+}
+
 .prikbord section ul {
   display: flex;
   flex-direction: column-reverse;
@@ -154,11 +177,11 @@ article {
 .prikbord article header {
   background-image: none;
   display: grid;
-  grid-template-columns: 1fr 90%;
+  grid-template-columns: 1fr 80% 10%;
   align-content: center;
   z-index: 0;
   margin-bottom: 1em;
-  border-bottom: 0.5px solid #6b717526;
+  border-bottom: var(--divider);
 }
 
 .prikbord header p {
@@ -166,6 +189,7 @@ article {
   color: #080808;
   padding: 0;
   font-size: 14px;
+  grid-area: 2;
 }
 
 .prikbord article header img {
@@ -177,12 +201,24 @@ article {
   grid-row: 1 / 3;
 }
 
+#editable {
+  grid-area: 1 /3;
+  color: #1b2032;
+  margin: 0;
+}
+
 .prikbord article header p {
   font-size: 12px;
 }
 
 .prikbord p {
   padding: 0.5em 0;
+}
+
+.prikbord .reactionCount {
+  align-self: flex-end;
+  font-size: 0.9rem;
+  color: #607d8b;
 }
 
 .prikbord h2 {
@@ -192,18 +228,31 @@ article {
 
 .prikbord article footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   flex-wrap: wrap;
-  border-top: 0.5px solid #6b717526;
-  margin: 0 -16px;
+  border-top: var(--divider);
 }
 
-.prikbord footer button {
+.prikbord article footer a {
+  display: flex;
+}
+
+.prikbord footer label {
   border: none;
-  background-color: #fff;
-  color: #1f8d84;
-  margin: 1em 0.5em 0em 0.5em;
+  color: #607d8b;
+  margin: 1em 0em 0em 0em;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.prikbord footer label i {
+  font-size: 1rem;
+  margin: 0 0.3em;
+}
+
+.prikbord footer label p {
+  margin: 0 0.3em;
 }
 
 .prikbord form {
@@ -248,6 +297,46 @@ article {
   border-radius: 50%;
   border-style: none;
   text-transform: none;
+}
+
+#likes {
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #1f8d84;
+  color: #fff;
+  text-align: center;
+  /* padding: 4px; */
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+#edit {
+  color: #1b2032;
+  flex-direction: column;
+  position: absolute;
+  right: -0.5em;
+  top: 0em;
+  background-color: #fdfdfd;
+  padding: 1.5em 1.5em 1em 1em;
+  border-radius: 6px;
+  box-shadow: 2px 1px 6px #0000000f;
+  z-index: -3;
+}
+
+#edit li {
+  padding: 1em 1em 0.5em 0;
+  border-bottom: var(--divider);
+  border-radius: 3px;
+  color: #565656;
+  font-size: 0.9rem;
+}
+
+#edit li:last-of-type {
+  color: #f44336;
+}
+#edit i {
+  margin: 0.5em 0.5em 0 0;
 }
 
 .post {
@@ -372,6 +461,46 @@ article {
   color: #fff;
   height: 2em;
   font-size: 1rem;
+}
+.reaction {
+  margin: 0 !important;
+}
+
+.reaction h2 {
+  margin-top: 5px;
+}
+
+.reaction p:first-of-type {
+  border-bottom: var(--divider);
+}
+
+.reaction ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.reaction article form {
+  flex-direction: row;
+}
+
+.reactions li {
+  width: 100%;
+  display: flex;
+  margin: 0.5em 0 1em 0;
+}
+
+.reactions article {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.reactions li img {
+  object-fit: cover;
+  max-width: 2em;
+  height: 2em;
+  border-radius: 50% !important;
+  margin: 0 0.5em;
 }
 
 .onboarding-groups footer input[type="submit"] {
@@ -656,7 +785,7 @@ header img {
 }
 
 .incoming p {
-  background-color: #f4433647;
+  background-color: #3654f447;
   padding: 0.5em;
   border-radius: 6px;
 }
@@ -847,7 +976,7 @@ header img {
   align-self: center;
   justify-self: center;
   font-size: 1em;
-  background-color: #b02424;
+  background-color: #f44336;
   color: #fff;
   border-radius: 6px;
   box-shadow: var(--backdrop-shadow);
@@ -1217,4 +1346,28 @@ header img {
 
 #afmelden {
   background-color: #b02424;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab {
+  padding: 10px;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background-color: #ddd;
+}
+
+.tab-content {
+  display: none;
+  padding: 10px;
+}
+
+.tab-content.active {
+  display: block;
 }

@@ -8,6 +8,7 @@ const messageSchema = new Schema({
   message: String,
   file: String,
   group: String,
+  reactions: Array,
 });
 
 export const Messages = mongoose.model("messages", messageSchema);

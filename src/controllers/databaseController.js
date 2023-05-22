@@ -1,7 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
 import { Groups } from "../models/groups.js";
 import { Users } from "../models/users.js";
 import { Messages } from "../models/messages.js";
+import { renderReactionPage } from "./uiController.js";
+import { io } from "../../server.js";
 
 export const findUserforPrikBord = async (req, res) => {
   const input = req.body.name;
@@ -11,7 +12,7 @@ export const findUserforPrikBord = async (req, res) => {
   req.session.user = currentUser;
   if (!currentUser) {
     res.redirect("/");
-  } else if (currentUser.groups) {
+  } else if (currentUser.groups.length > 0) {
     res.redirect("/prikbord");
   } else {
     res.redirect("/onboarding");
@@ -50,25 +51,43 @@ export const createMessageInDB = async (req, res) => {
     title: req.body.title,
     message: req.body.message,
     group: req.body.group,
+    reactions: [],
   };
 
   if (req.file) {
     post.file = req.file.filename;
   }
 
-  const test = Messages.create(post);
-  if (test) {
+  const response = Messages.create(post);
+  if (response) {
+    io.emit("new post", post);
     res.redirect("/prikbord");
   }
 };
 
+export const postReaction = async (req, res) => {
+  const reaction = {
+    user: req.session.user.name,
+    avatar: req.session.user.avatar,
+    reaction: req.body.reaction,
+  };
+
+  await Messages.updateOne(
+    { _id: req.params[0] },
+    { $push: { reactions: reaction } }
+  );
+
+  renderReactionPage(req, res);
+};
+
 export const uploadGroups = async (req, res) => {
   const groups = Object.keys(req.body);
-  console.log(groups);
+  req.session.user.groups = groups;
+
   await Users.updateOne(
     { name: req.session.user.name },
     { $set: { groups: groups } }
   );
 
-  res.redirect("/prikbord");
+  await res.redirect("/prikbord");
 };

@@ -8,6 +8,7 @@ const router = express.Router();
 router
   .get("/", uiController.renderIndex)
   .get("/prikbord", uiController.renderPrikbord)
+  .get("/reactions/*", uiController.renderReactionPage)
   .get("/post", uiController.renderCreateAPost)
   .get("/groups", uiController.renderGroups)
   .get("/groups/*", uiController.renderGroupDetail)
@@ -19,6 +20,7 @@ router
 
   .post("/", databaseController.findUserforPrikBord)
   .post("/post", upload.single("file"), databaseController.createMessageInDB)
-  .post("/prikbord", databaseController.uploadGroups);
+  .post("/onboarding/choosegroups", databaseController.uploadGroups)
+  .post("/reactions/*", databaseController.postReaction);
 
 export default router;
