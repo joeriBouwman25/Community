@@ -21,6 +21,7 @@ router
   .post("/", databaseController.findUserforPrikBord)
   .post("/post", upload.single("file"), databaseController.createMessageInDB)
   .post("/onboarding/choosegroups", databaseController.uploadGroups)
-  .post("/reactions/*", databaseController.postReaction);
+  .post("/reactions/*", databaseController.postReaction)
+  .post("/postSettings", databaseController.handlePostsettings);
 
 export default router;

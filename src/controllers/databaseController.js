@@ -91,3 +91,10 @@ export const uploadGroups = async (req, res) => {
 
   await res.redirect("/prikbord");
 };
+
+export const handlePostsettings = async (req, res) => {
+  await Messages.deleteOne({
+    _id: req.body.delete,
+  });
+  res.redirect("/prikbord");
+};

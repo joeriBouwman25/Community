@@ -4,6 +4,18 @@ const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const tabs = document.querySelectorAll("footer nav a");
 
+const deletePostButtons = document.querySelectorAll("#deletePost");
+const dialogs = document.getElementsByClassName("dialog");
+
+if (deletePostButtons) {
+  deletePostButtons.forEach((deleteButton, index) => {
+    deleteButton.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dialogs[index].showModal();
+    });
+  });
+}
+
 const upButton = document.getElementById("newMessage");
 if (upButton) {
   upButton.addEventListener("click", () => {
@@ -17,26 +29,29 @@ if (upButton) {
 }
 
 socket.on("new post", (post) => {
-  const content = `<li><article>
-  <header>
-    <img src="/images/${post.avatar}" alt="profielfoto" />
-    <h3>${post.user}</h3>
-  </header>
-  <h2>${post.title}</h2>
-  <p>${post.message}</p>
-  <footer>
-    <label class="likes" for="">
-      <i class="fa-regular fa-thumbs-up"></i>
-      <p>3</p>
-    </label>
-    <a href="/reactions/${post.title}">
-      <label for="">
-        <i class="fa-regular fa-message"></i>
-        Reageer
-      </label>
-    </a>
-  </footer>
-</article></li>`;
+  const content = `
+  <li>
+    <article>
+      <header>
+        <img src="/images/${post.avatar}" alt="profielfoto" />
+        <h3>${post.user}</h3>
+      </header>
+      <h2>${post.title}</h2>
+      <p>${post.message}</p>
+      <footer>
+        <label class="likes" for="">
+          <i class="fa-regular fa-thumbs-up"></i>
+          <p>3</p>
+        </label>
+        <a href="/reactions/${post.title}">
+          <label for="">
+            <i class="fa-regular fa-message"></i>
+            Reageer
+          </label>
+        </a>
+      </footer>
+    </article>
+  </li>`;
   upButton.classList.remove("hidden");
 
   ul.insertAdjacentHTML("beforeend", content);
