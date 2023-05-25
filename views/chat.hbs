@@ -1,7 +1,17 @@
-<header>
-  <h1>Chat</h1>
-  <h3 id="user">{{user.name}}</h3>
-</header>
+{{#if user.admin}}
+  <header class="detailHeader">
+    <a href="/chat">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <h1>{{roomName}}</h1>
+  </header>
+{{else}}
+  <header>
+    <h1>Chat</h1>
+    <h3 id="user">{{user.name}}</h3>
+  </header>
+{{/if}}
+
 <main class="chat">
   <section>
     <p class="infoMessage">
@@ -12,7 +22,6 @@
     <ul>
 
     </ul>
-
   </section>
   <section>
     <form class="chatForm" action="#" method="post">

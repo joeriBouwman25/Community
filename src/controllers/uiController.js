@@ -26,8 +26,19 @@ export const renderCreateAPost = async (req, res) => {
 
 export const renderChat = async (req, res) => {
   const user = req.session.user;
+  const allUsers = await database.findAllUsers();
+  req.session.user.admin
+    ? res.render("rooms", { allUsers })
+    : res.render("chat", { user });
+};
+
+export const renderChatForAdmin = async (req, res) => {
+  const user = req.session.user;
+  const roomName = req.body.chat;
   res.render("chat", {
     user,
+    roomName,
+    layout: "detail",
   });
 };
 
@@ -54,13 +65,21 @@ export const renderPrikbord = async (req, res) => {
 };
 
 export const renderReactionPage = async (req, res) => {
-  const id = req.path.split("/").pop();
+  const user = req.session.user;
+  const postID = req.path.split("/").pop();
   const message = await Messages.findOne({
-    _id: id,
+    _id: postID,
   }).lean();
+
+  message.reactions.forEach((reaction) => {
+    if (reaction.user === user.name) {
+      reaction.editable = true;
+    }
+  });
 
   res.render("reactions", {
     message,
+    postID,
     layout: "detail",
   });
 };
@@ -83,7 +102,7 @@ export const renderGroupDetail = async (req, res) => {
   const query = req.params[0];
   const user = req.session.user;
   const group = await database.findOneGroup(query);
-  const submitted = user.groups.find((groups) => groups === group.name);
+  const submitted = user.groups.find((groups) => groups === group.id);
   res.render("groupDetail", {
     group,
     submitted,

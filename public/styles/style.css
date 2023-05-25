@@ -54,6 +54,10 @@ ul {
   list-style-type: none;
 }
 
+li {
+  color: #1b2032;
+}
+
 a {
   text-decoration: none;
   color: #9d9d9d;
@@ -90,6 +94,12 @@ h3 {
 button {
   border: none;
   box-shadow: var(--backdrop-shadow);
+}
+
+input[type="text"],
+textarea {
+  border: var(--divider) !important;
+  background-color: #f0f0f0 !important;
 }
 
 .activeLink {
@@ -351,6 +361,10 @@ dialog form button:last-of-type {
   background-color: transparent;
 }
 
+.reaction dialog {
+  top: 55vh;
+}
+
 #likes {
   width: 1em;
   height: 1em;
@@ -368,7 +382,7 @@ dialog form button:last-of-type {
   position: absolute;
   right: -0.5em;
   top: 0em;
-  background-color: #fdfdfd;
+  background-color: #f4f4f4;
   padding: 1.5em 1.5em 1em 1em;
   border-radius: 6px;
   box-shadow: 2px 1px 6px #0000000f;
@@ -376,11 +390,13 @@ dialog form button:last-of-type {
 }
 
 #edit li {
-  padding: 1em 1em 0.5em 0;
+  padding: 1em 1em 1em 0;
   border-bottom: var(--divider);
   border-radius: 3px;
   color: #565656;
   font-size: 0.9rem;
+  align-items: center;
+  margin: 0;
 }
 
 #edit li:last-of-type {
@@ -405,10 +421,13 @@ dialog form button:last-of-type {
   justify-content: flex-start;
 }
 
-.detailheader svg {
-  height: 25;
-  fill: #ffffff;
-  margin: 0em 1em;
+.detailheader a {
+  color: #ffffff;
+  margin: 0 1em 0 2em;
+}
+
+.detailheader a > i {
+  margin-bottom: 0;
 }
 
 .detailHeader h1 {
@@ -539,6 +558,8 @@ dialog form button:last-of-type {
   width: 100%;
   display: flex;
   margin: 0.5em 0 1em 0;
+  position: relative;
+  overflow: visible;
 }
 
 .reactions article {
@@ -554,6 +575,18 @@ dialog form button:last-of-type {
   margin: 0 0.5em;
 }
 
+.reactions #edit {
+  z-index: 0;
+  right: 0.5em;
+  top: -1.65em;
+}
+
+.reactions #editable {
+  position: absolute;
+  right: 1em;
+  z-index: 1;
+}
+
 .onboarding-groups footer input[type="submit"] {
   background-color: #339999;
   opacity: 0.5;
@@ -561,7 +594,7 @@ dialog form button:last-of-type {
 }
 
 .chooseGroups li article div {
-  padding: 1em 1em 0.5em 1em;
+  padding: 1em;
 }
 
 .chooseGroups h3 {
@@ -578,9 +611,17 @@ dialog form button:last-of-type {
   padding: 0.5em 1em;
   border-radius: 2em;
   color: #565656;
-  border: 2px solid #979797;
+  border: 1px solid #979797;
   font-size: 0.9rem;
   margin: 1em;
+}
+
+.groups .chooseGroups label {
+  border: 1px solid var(--secondary-color);
+}
+
+.groups .chooseGroups label a {
+  color: var(--secondary-color);
 }
 
 .chooseGroups {
@@ -807,7 +848,7 @@ header img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-image: url(/images/chat1.svg);
+  background-image: url(/images/chat_1.svg);
   background-position: center;
   background-repeat: repeat;
   background-color: #fafafa;
@@ -904,34 +945,36 @@ header img {
 }
 
 .profile section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
   background-color: #fff;
   padding: 1em;
   border-radius: 10px;
   box-shadow: var(--backdrop-shadow);
 }
 
-.profile section:nth-of-type(2) article img {
+.profile section:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile section:nth-of-type(3) article img {
   width: 2.5em;
   height: 2.5em;
 }
 
-.profile section:nth-of-type(2) article div:first-of-type {
+.profile section:nth-of-type(3) article div:first-of-type {
   margin: 0 0.5em;
   width: 100%;
 }
 
-.profile section:nth-of-type(2) > div {
+.profile section:nth-of-type(3) > div {
   display: flex;
   justify-content: flex-start;
   width: 100%;
 }
 
-.profile section:nth-of-type(2) > div p {
-  margin: 0;
+.profile section:nth-of-type(3) > div p {
   font-size: 14px;
 }
 
@@ -1038,6 +1081,18 @@ header img {
   text-align: center;
 }
 
+.profile .myHouse li {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0;
+}
+
+.profile .myHouse li i {
+  color: var(--secondary-color);
+  font-size: 1rem;
+  margin-right: 0.5em;
+}
+
 .userAvatar {
   position: relative;
 }
@@ -1067,7 +1122,7 @@ header img {
 
 .groups section {
   background-color: #ffffff;
-  margin: 1em 0.5em;
+  margin: 0;
   padding: 1em;
   border-radius: 6px;
   box-shadow: var(--backdrop-shadow);
@@ -1097,22 +1152,11 @@ header img {
   height: 51vh;
 }
 
-.groups section:nth-of-type(2) article {
-  width: 100%;
-  padding: 1em 0;
-}
-
-.groups section:nth-of-type(2) article div:nth-of-type(2) {
-  width: auto;
-}
-
 .groups ul li article {
   display: flex;
   justify-content: flex-start;
-  /* background: linear-gradient(45deg, rgba(31, 141, 132, 0.2) 0%, #f2f2f2 70%); */
   align-items: center;
   border-radius: 10px;
-  margin: 0.7em 0;
 }
 
 .groups .discover ul {
@@ -1169,6 +1213,11 @@ header img {
   box-shadow: var(--backdrop-shadow);
 }
 
+.memberDate {
+  width: 100%;
+  color: #979797 !important;
+}
+
 .groupDetail section {
   background-color: #ffffff;
   margin: 1em 0.5em;
@@ -1177,20 +1226,26 @@ header img {
   padding: 1em;
 }
 
-.groupDetail article {
-  padding: 0.5em;
-}
-
 .groupDetail form {
   display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 0.5em;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 0;
 }
 
 .groupDetail form label {
-  color: var(--danger);
-  margin: 0.5em 0;
+  font-weight: 500;
+  margin: 1em 0;
+}
+
+.signUpForGroup {
+  margin: 0 !important;
+}
+
+.alreadyMember {
+  color: #9d9d9d;
+  font-size: 0.9rem;
 }
 
 .groupDetail img {
@@ -1202,18 +1257,117 @@ header img {
 .groupDetail .toggle {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.groupDetail .members,
+.groupDetail .toggle,
+.groupDetail article {
+  padding: 1em 0;
+  border-bottom: var(--divider);
 }
 
 .groupDetail input[type="submit"] {
-  width: 90%;
   align-self: center;
-  margin: 0 16px;
-  background-color: var(--secondary-color);
-  border: none;
-  border-radius: 10px;
-  color: #fff;
+  padding: 0 1em;
+  border: 1px solid var(--secondary-color);
+  border-radius: 2em;
+  color: var(--secondary-color);
+  background-color: transparent;
   height: 2em;
   font-size: 1rem;
+}
+
+.groups .groupTabs {
+  display: flex;
+  justify-content: center;
+}
+
+.groups .groupTabs h2 {
+  padding: 1em;
+  border-radius: 0 0 6px 0;
+  color: #979797;
+  background-color: #f2f2f2;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.groupDetail .members ul {
+  padding: 0.7em 0;
+}
+
+.groupDetail .members ul li {
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
+}
+
+.groupDetail .members ul li img {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 2em;
+  object-fit: cover;
+  margin: 0 0.5em;
+  border: 1px ridge var(--secondary-color);
+}
+.rooms ul li form {
+  display: flex;
+  align-items: center;
+  /* padding: 1em 0; */
+  border-bottom: var(--divider);
+}
+
+.rooms {
+  margin: 0;
+}
+
+.rooms ul li img {
+  height: 2.5em;
+  width: 2.5em;
+  border-radius: 2em;
+  object-fit: cover;
+  margin: 0 1em;
+  border: 1px ridge var(--secondary-color);
+}
+
+.rooms button {
+  width: 100%;
+  text-align: start;
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-start;
+  height: 4em;
+  box-shadow: none;
+  padding: 1em 0;
+  background-color: #b2bec380;
+}
+
+#flexContainer {
+  padding: 1em 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--divider);
+}
+
+.filter-list li:nth-child(n + 5) {
+  display: none !important;
+}
+
+#showMore {
+  text-align: end;
+  color: var(--secondary-color);
+}
+
+#flexContainer i {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+}
+
+.activeTab {
+  background-color: #fff !important;
+  color: var(--primary-color) !important;
 }
 
 .loading {
@@ -1396,7 +1550,10 @@ header img {
 }
 
 #afmelden {
-  background-color: var(--danger);
+  border: 1px solid var(--danger);
+  background-color: transparent;
+  color: var(--danger);
+  border-radius: 2em;
 }
 
 .tab-container {

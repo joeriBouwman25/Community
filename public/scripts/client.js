@@ -4,14 +4,40 @@ const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const tabs = document.querySelectorAll("footer nav a");
 
-const deletePostButtons = document.querySelectorAll("#deletePost");
-const dialogs = document.getElementsByClassName("dialog");
+const memberList = document.querySelector(".members ul");
+const memberCount = document.querySelectorAll(".members ul li");
+const showMoreButton = document.getElementById("showMore");
+if (memberCount) {
+  if (memberCount.length > 4) {
+    memberList.classList.add("filter-list");
+    showMoreButton.classList.remove("hidden");
+    showMoreButton.addEventListener("click", () => {
+      memberList.classList.toggle("filter-list");
+      memberList.className === "filter-list"
+        ? (showMoreButton.innerHTML = `Laat alle leden zien
+      <i class="fa-solid fa-caret-down"></i>`)
+        : (showMoreButton.innerHTML = `Laat minder zien
+        <i class="fa-solid fa-caret-up"></i>`);
+    });
+  }
+}
 
-if (deletePostButtons) {
-  deletePostButtons.forEach((deleteButton, index) => {
-    deleteButton.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dialogs[index].showModal();
+const groupTabs = document.querySelectorAll(".groupTabs h2");
+const groupSections = document.querySelectorAll(".groups section");
+if (groupTabs) {
+  groupTabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => {
+      if (!tab.classList.contains("activeTab")) {
+        groupTabs.forEach((tab) => {
+          tab.classList.remove("activeTab");
+        });
+        tab.classList.add("activeTab");
+
+        groupSections.forEach((section) => {
+          section.classList.add("hidden");
+        });
+        groupSections[index].classList.remove("hidden");
+      }
     });
   });
 }
@@ -57,14 +83,23 @@ socket.on("new post", (post) => {
   ul.insertAdjacentHTML("beforeend", content);
 });
 
+const deletePostButtons = document.querySelectorAll("#deletePost");
+const dialogs = document.getElementsByClassName("dialog");
 const editButtons = document.querySelectorAll("#editable");
+const menu = document.getElementsByClassName("editable");
 if (editButtons) {
   editButtons.forEach((button, index) =>
     button.addEventListener("click", () => {
-      const menu = document.getElementsByClassName("editable");
       menu[index].classList.toggle("hidden");
     })
   );
+
+  deletePostButtons.forEach((deleteButton, index) => {
+    deleteButton.addEventListener("click", (e) => {
+      menu[index].classList.toggle("hidden");
+      dialogs[index].showModal();
+    });
+  });
 }
 
 const likeButtons = document.querySelectorAll("footer .likes");
@@ -112,8 +147,8 @@ const checkForm = () => {
   }
 };
 
-const groupLabels = document.querySelectorAll(".chooseGroups label");
-const groupInputs = document.querySelectorAll(".chooseGroups input");
+const groupLabels = document.querySelectorAll(".onboarding-groups label");
+const groupInputs = document.querySelectorAll(".onboarding-groups input");
 if (groupLabels) {
   groupInputs.forEach((input) => {
     input.addEventListener("change", checkForm);
@@ -203,19 +238,3 @@ if (loadingState) {
 //   }
 //   container.appendChild(showMoreButton);
 // }
-
-const groupTab = document.querySelectorAll(".tab");
-const tabContents = document.querySelectorAll(".tab-content");
-groupTab.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    // Remove active class from all tabs and tab contents
-    groupTab.forEach((tab) => tab.classList.remove("active"));
-    tabContents.forEach((content) => content.classList.remove("active"));
-
-    // Add active class to clicked tab and corresponding tab content
-    const tabId = tab.id.replace("tab", "content");
-    const tabContent = document.getElementById(tabId);
-    tab.classList.add("active");
-    tabContent.classList.add("active");
-  });
-});

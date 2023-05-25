@@ -53,7 +53,7 @@
     <h1>Groepen Laden...</h1>
   </span>
 </section>
-<main class="groups hidden">
+<main class="onboarding-groups groups hidden">
   {{! <div class="tab" id="tab1">Ontdekken</div>
   <div class="tab" id="tab2">Mijn groepen</div> }}
   {{! <section>
@@ -62,43 +62,73 @@
       <input type="text">
     </form>
   </section> }}
-  <section class="discover">
-    <h2>Ontdekken</h2>
-    <ul>
-      {{#each filteredGroups}}
-        <li>
-          <a href="/groups/{{name}}">
-            <article>
-              <img src="/images/{{image}}" alt="" />
-              <div>
-                <h3 style="color: {{color}}">{{name}}</h3>
-                <p>{{members}} Leden</p>
-              </div>
-              <button>Aanmelden</button>
-            </article>
-          </a>
-        </li>
-      {{/each}}
-    </ul>
-  </section>
-  <section>
+  <nav class="groupTabs">
+    <h2 class="activeTab">Ontdekken</h2>
     <h2>Mijn Groepen</h2>
-    <ul>
+  </nav>
+  <section class="discover">
+    {{#if filteredGroups}}
+      <ul class="chooseGroups">
+        {{#each filteredGroups}}
+          <li>
+            <article
+              style="background-image: linear-gradient(27deg, {{color}}12 0%, #f2f2f2 51%);"
+            >
+              <img
+                style="border-bottom: 2px solid {{color}}"
+                src="/images/{{image}}"
+                alt=""
+              />
+              <div id="flexContainer">
+                <h3 style="color: {{color}}">{{name}}</h3>
+                <p>{{members.length}} Leden</p>
+              </div>
+              <label for="{{id}}">
+                <a href="/groups/{{name}}">
+                  <i id="joinIcon" class="fa-solid fa-circle-info"></i>
+                  Meer informatie
+                </a>
+              </label>
+            </article>
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <article>
+        <h2>Sorry!</h2>
+        <p>Er zijn op dit moment geen nieuwe interesse groepen meer om te
+          ontdekken</p>
+        <br />
+        <p>Heb je zelf een idee voor een nieuwe interesse groep? Doe een oproep
+          naar de complexbeheerder via de
+          <a href="/chat">Chat</a></p>
+      </article>
+    {{/if}}
+  </section>
+  <section class="discover hidden">
+    <ul class="chooseGroups">
       {{#each myGroups}}
         <li>
-          <a href="/groups/{{name}}">
-            <article>
-              <img src="/images/{{image}}" alt="" />
-              <div>
-                <h3>{{name}}</h3>
-                <p>{{members}} Leden</p>
-              </div>
-              <div class="toggle">
-                <input type="checkbox" id={{name}} />
-                <label for={{name}}>Toggle</label>
-              </div>
-            </article>
-          </a>
+          <article
+            style="background-image: linear-gradient(27deg, {{color}}12 0%, #f2f2f2 51%);"
+          >
+            <img
+              style="border-bottom: 2px solid {{color}}"
+              src="/images/{{image}}"
+              alt=""
+            />
+            <div id="flexContainer">
+              <h3 style="color: {{color}}">{{name}}</h3>
+              <p>{{members.length}} Leden</p>
+              <p class="memberDate">Lid sinds 19-05-2023</p>
+            </div>
+            <label for="{{id}}">
+              <a href="/groups/{{name}}">
+                <i id="joinIcon" class="fa-solid fa-circle-info"></i>
+                Meer informatie
+              </a>
+            </label>
+          </article>
         </li>
       {{/each}}
     </ul>

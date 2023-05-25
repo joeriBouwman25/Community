@@ -32,6 +32,40 @@
               <p>
                 {{reaction}}
               </p>
+              {{#if editable}}
+                <i id="editable" class="fa-light fa-ellipsis-vertical"></i>
+                <nav class="editable hidden">
+                  <ul id="edit">
+                    <li>
+                      <i class="fa-regular fa-pencil"></i>
+                      Bewerken
+                    </li>
+                    <li id="deletePost">
+                      <i class="fa-regular fa-trash-can"></i>
+                      Verwijderen
+                    </li>
+                  </ul>
+                </nav>
+                <dialog class="dialog">
+                  <form method="POST" action="/deleteReaction">
+                    <h2>Wil je deze reactie verwijderen?</h2>
+                    <p>
+                      Het verwijderen van een reactie kan niet ongedaan worden
+                      gemaakt
+                    </p>
+                    <div>
+                      <button
+                        value="cancel"
+                        formmethod="dialog"
+                      >Annuleren</button>
+                      <button
+                        name="delete"
+                        value="{{../postID}}/{{reactionID}}"
+                      >Verwijderen</button>
+                    </div>
+                  </form>
+                </dialog>
+              {{/if}}
             </article>
           </li>
         {{/each}}

@@ -22,6 +22,8 @@ router
   .post("/post", upload.single("file"), databaseController.createMessageInDB)
   .post("/onboarding/choosegroups", databaseController.uploadGroups)
   .post("/reactions/*", databaseController.postReaction)
-  .post("/postSettings", databaseController.handlePostsettings);
+  .post("/postSettings", databaseController.handlePostsettings)
+  .post("/deleteReaction", databaseController.deleteReaction)
+  .post("/chat", uiController.renderChatForAdmin);
 
 export default router;

@@ -1,0 +1,19 @@
+<header>
+  <h1>Gesprekken</h1>
+</header>
+<section class="rooms">
+  <div class="members">
+    <ul>
+      {{#each allUsers}}
+        <li>
+          <form action="/chat" method="post">
+            <button name="chat" value={{name}}>
+              <img src="/images/{{avatar}}" alt="" />
+              <p>{{name}}</p>
+            </button>
+          </form>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</section>

@@ -3,12 +3,12 @@ import { Users } from "../models/users.js";
 import { Messages } from "../models/messages.js";
 import { renderReactionPage } from "./uiController.js";
 import { io } from "../../server.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const findUserforPrikBord = async (req, res) => {
   const input = req.body.name;
   const query = input.charAt(0).toUpperCase() + input.slice(1);
   const currentUser = await Users.findOne({ name: query });
-
   req.session.user = currentUser;
   if (!currentUser) {
     res.redirect("/");
@@ -17,6 +17,11 @@ export const findUserforPrikBord = async (req, res) => {
   } else {
     res.redirect("/onboarding");
   }
+};
+
+export const findAllUsers = async (req, res) => {
+  const users = await Users.find({}).lean();
+  return users;
 };
 
 export const findAllMessages = async (req, res) => {
@@ -67,6 +72,7 @@ export const createMessageInDB = async (req, res) => {
 
 export const postReaction = async (req, res) => {
   const reaction = {
+    reactionID: uuidv4(),
     user: req.session.user.name,
     avatar: req.session.user.avatar,
     reaction: req.body.reaction,
@@ -82,8 +88,12 @@ export const postReaction = async (req, res) => {
 
 export const uploadGroups = async (req, res) => {
   const groups = Object.keys(req.body);
-  req.session.user.groups = groups;
+  await Groups.updateMany(
+    { id: groups },
+    { $push: { members: req.session.user } }
+  );
 
+  req.session.user.groups = groups;
   await Users.updateOne(
     { name: req.session.user.name },
     { $set: { groups: groups } }
@@ -97,4 +107,19 @@ export const handlePostsettings = async (req, res) => {
     _id: req.body.delete,
   });
   res.redirect("/prikbord");
+};
+
+export const deleteReaction = async (req, res) => {
+  const postID = req.body.delete.split("/").shift();
+  const reactionID = req.body.delete.split("/").pop();
+
+  await Messages.findOneAndUpdate(
+    { _id: postID },
+    {
+      $pull: {
+        reactions: { reactionID: reactionID },
+      },
+    }
+  );
+  res.redirect(`reactions/${postID}`);
 };

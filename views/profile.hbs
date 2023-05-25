@@ -27,8 +27,15 @@
       </span>
     </div>
   </section>
-
   <section>
+    <h2>Mijn Woning</h2>
+    <ul class="myHouse">
+      <li><i class="fa-duotone fa-house"></i> <p> Plattegrond</p></li>
+      <li><i class="fa-duotone fa-car-building"></i> <p>Voorzieningen</p></li>
+      <li><i class="fa-duotone fa-charging-station"></i><p> Diensten</p></li>
+    </ul>
+  </section>
+  <section class="members">
     <div>
       <h2>Mijn interesse groepen</h2>
       <p>Notificaties</p>
@@ -40,7 +47,7 @@
             <img src="/images/{{image}}" alt="" />
             <div>
               <h3 style="color: {{color}}">{{name}}</h3>
-              <p>{{members}} Leden</p>
+              <p>{{members.length}} Leden</p>
             </div>
             <div class="toggle">
               <input type="checkbox" id={{name}} />
@@ -50,12 +57,8 @@
         </li>
       {{/each}}
     </ul>
-  </section>
-  <section>
-    <h2>Mijn Woning</h2>
-    <p>Plattegrond</p>
-    <p>Voorzieningen</p>
-    <p>Diensten</p>
+    <h3 class="hidden" id="showMore">Alle leden
+      <i class="fa-solid fa-caret-down"></i></h3>
   </section>
   <section>
     <article>
