@@ -6,18 +6,22 @@ const tabs = document.querySelectorAll("footer nav a");
 
 const memberList = document.querySelector(".members ul");
 const memberCount = document.querySelectorAll(".members ul li");
-const showMoreButton = document.getElementById("showMore");
+const showMoreButton = document.getElementById("showAllMembers");
 if (memberCount) {
+  const showMoreH3 = document.querySelector("#showAllMembers h3");
+  const showMoreI = document.querySelector("#showAllMembers i");
   if (memberCount.length > 4) {
     memberList.classList.add("filter-list");
     showMoreButton.classList.remove("hidden");
     showMoreButton.addEventListener("click", () => {
       memberList.classList.toggle("filter-list");
-      memberList.className === "filter-list"
-        ? (showMoreButton.innerHTML = `Laat alle leden zien
-      <i class="fa-solid fa-caret-down"></i>`)
-        : (showMoreButton.innerHTML = `Laat minder zien
-        <i class="fa-solid fa-caret-up"></i>`);
+      if (memberList.className === "filter-list") {
+        showMoreH3.textContent = `Laat alle zien`;
+        showMoreI.className = "fa-solid fa-caret-down";
+      } else {
+        showMoreH3.textContent = `Laat minder zien`;
+        showMoreI.className = "fa-solid fa-caret-up";
+      }
     });
   }
 }
@@ -147,8 +151,8 @@ const checkForm = () => {
   }
 };
 
-const groupLabels = document.querySelectorAll(".onboarding-groups label");
-const groupInputs = document.querySelectorAll(".onboarding-groups input");
+const groupLabels = document.querySelectorAll(".onboardingLabel");
+const groupInputs = document.querySelectorAll(".onboardingInput");
 if (groupLabels) {
   groupInputs.forEach((input) => {
     input.addEventListener("change", checkForm);
@@ -156,7 +160,7 @@ if (groupLabels) {
 
   groupLabels.forEach((label) => {
     label.addEventListener("click", () => {
-      if (label.className === "active") {
+      if (label.className === "onboardingLabel active") {
         label.innerHTML = `<i id="joinIcon" class="fa-regular fa-heart-circle-plus"></i> Geïntereseerd`;
         label.classList.remove("active");
       } else {

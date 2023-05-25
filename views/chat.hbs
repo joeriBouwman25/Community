@@ -4,6 +4,7 @@
       <i class="fa-solid fa-arrow-left"></i>
     </a>
     <h1>{{roomName}}</h1>
+    <h3 id="user">{{user.name}}</h3>
   </header>
 {{else}}
   <header>
@@ -14,11 +15,13 @@
 
 <main class="chat">
   <section>
-    <p class="infoMessage">
-      Houdt er rekening mee dat de complexbeheerder werkzaam is op werkdagen van
-      09:00 tot 18:00 en niet op elk moment van de dag kan reageren.
-      <br />
-      Berichten zullen zo spoedig mogelijk beantwoord worden</p>
+    {{#unless user.admin}}
+      <p class="infoMessage">
+        Houdt er rekening mee dat de complexbeheerder werkzaam is op werkdagen
+        van 09:00 tot 18:00 en niet op elk moment van de dag kan reageren.
+        <br />
+        Berichten zullen zo spoedig mogelijk beantwoord worden</p>
+    {{/unless}}
     <ul>
 
     </ul>

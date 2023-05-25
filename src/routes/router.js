@@ -24,6 +24,8 @@ router
   .post("/reactions/*", databaseController.postReaction)
   .post("/postSettings", databaseController.handlePostsettings)
   .post("/deleteReaction", databaseController.deleteReaction)
-  .post("/chat", uiController.renderChatForAdmin);
+  .post("/chat", uiController.renderChatForAdmin)
+  .post("/groups/signup", databaseController.addGroupForUser)
+  .post("/groups/signoff", databaseController.removeGroupForUser);
 
 export default router;

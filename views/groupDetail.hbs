@@ -29,23 +29,31 @@
             </li>
           {{/each}}
         </ul>
-        <h3 class="hidden" id="showMore">Alle leden
-          <i class="fa-solid fa-caret-down"></i></h3>
+        <div class="hidden" id="showAllMembers">
+          <h3 id="showMore">Laat alle zien </h3>
+          <p>({{group.members.length}})</p>
+          <i class="fa-solid fa-caret-down"></i>
+        </div>
+
       </div>
-      <form action="">
+      <form action="/groups/signoff" method="post">
         <label for="afmelden">Meld je af van deze groep</label>
-        <input id="Afmelden" value="Afmelden" type="submit" />
+        <button id="afmelden" name="afmelden" value="{{group.id}}">
+          Afmelden
+        </button>
       </form>
     {{else}}
       <div class="members">
         <h3>Leden</h3>
         <p>Abonneer je op deze groep om groepsleden te bekijken</p>
       </div>
-      <form action="">
+      <form action="/groups/signup" method="post">
         <label class="signUpForGroup" for="aanmelden">
           Word lid van deze groep
         </label>
-        <input id="aanmelden" value="Aanmelden" type="submit" />
+        <button id="aanmelden" name="aanmelden" value={{group.id}}>
+          Aanmelden
+        </button>
         <p class="alreadyMember">{{group.members.length}}
           bewoners gingen je voor</p>
       </form>

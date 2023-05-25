@@ -150,16 +150,16 @@ article {
 #newMessage {
   display: flex;
   align-items: center;
-  padding: 1em;
+  padding: 0.5em 1em;
   font-size: 0.9rem;
-  background-color: var(--secondary-color) d6;
+  background-color: var(--secondary-color);
   border: none;
   border-radius: 30px;
   color: #fff;
   position: fixed;
   z-index: 300;
   left: 50%;
-  top: 20%;
+  top: 15%;
   transform: translate(-50%, 0);
   box-shadow: var(--backdrop-shadow);
 }
@@ -616,12 +616,31 @@ dialog form button:last-of-type {
   margin: 1em;
 }
 
-.groups .chooseGroups label {
+.groups .chooseGroups .groupLabel {
   border: 1px solid var(--secondary-color);
 }
 
 .groups .chooseGroups label a {
   color: var(--secondary-color);
+}
+
+#aanmelden,
+#afmelden {
+  padding: 0.5em 1em;
+  border-radius: 2em;
+  font-size: 0.9rem;
+  margin: 1em;
+  background-color: transparent;
+}
+
+#aanmelden {
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+}
+
+#afmelden {
+  color: var(--danger);
+  border: 1px solid var(--danger);
 }
 
 .chooseGroups {
@@ -1355,11 +1374,6 @@ header img {
   display: none !important;
 }
 
-#showMore {
-  text-align: end;
-  color: var(--secondary-color);
-}
-
 #flexContainer i {
   color: var(--secondary-color);
   font-size: 1.5rem;
@@ -1578,4 +1592,20 @@ header img {
 
 .tab-content.active {
   display: block;
+}
+
+#showAllMembers {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#showAllMembers p,
+#showAllMembers i {
+  color: var(--secondary-color);
+  margin: 0 0.2em;
+}
+
+#showMore {
+  color: var(--secondary-color);
 }

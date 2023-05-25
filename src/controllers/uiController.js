@@ -38,7 +38,6 @@ export const renderChatForAdmin = async (req, res) => {
   res.render("chat", {
     user,
     roomName,
-    layout: "detail",
   });
 };
 

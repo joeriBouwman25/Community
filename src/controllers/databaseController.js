@@ -1,7 +1,7 @@
 import { Groups } from "../models/groups.js";
 import { Users } from "../models/users.js";
 import { Messages } from "../models/messages.js";
-import { renderReactionPage } from "./uiController.js";
+import { renderGroups, renderReactionPage } from "./uiController.js";
 import { io } from "../../server.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -122,4 +122,22 @@ export const deleteReaction = async (req, res) => {
     }
   );
   res.redirect(`reactions/${postID}`);
+};
+
+export const addGroupForUser = async (req, res) => {
+  await Users.findOneAndUpdate(
+    { _id: req.session.user._id },
+    { $push: { groups: req.body.aanmelden } }
+  );
+  req.session.user.groups.push(req.body.aanmelden);
+  await renderGroups(req, res);
+};
+
+export const removeGroupForUser = async (req, res) => {
+  await Users.findOneAndUpdate(
+    { _id: req.session.user._id },
+    { $pull: { groups: req.body.afmelden } }
+  );
+  req.session.user.groups.pop(req.body.afmelden);
+  await renderGroups(req, res);
 };
