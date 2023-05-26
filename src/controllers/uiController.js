@@ -84,6 +84,17 @@ export const renderReactionPage = async (req, res) => {
 };
 
 export const renderGroups = async (req, res) => {
+  let showToast;
+  let toastId;
+  if (req.body.aanmelden) {
+    const toastText = await database.findOneGroup(req.body.aanmelden);
+    showToast = `Aangemeld voor de groep ${toastText.name}`;
+    toastId = "signupToast";
+  } else if (req.body.afmelden) {
+    const toastText = await database.findOneGroup(req.body.afmelden);
+    showToast = `Afgemeld van de groep ${toastText.name}`;
+    toastId = "signoffToast";
+  }
   const user = req.session.user;
   const allGroups = await database.findAllGroups();
   const myGroups = await database.findMyInterestGroups(user);
@@ -94,6 +105,8 @@ export const renderGroups = async (req, res) => {
   res.render("groups", {
     filteredGroups,
     myGroups,
+    showToast,
+    toastId,
   });
 };
 

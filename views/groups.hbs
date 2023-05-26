@@ -84,7 +84,7 @@
                 <p>{{members.length}} Leden</p>
               </div>
               <label class="groupLabel" for="{{id}}">
-                <a href="/groups/{{name}}">
+                <a href="/groups/{{id}}">
                   <i id="joinIcon" class="fa-solid fa-circle-info"></i>
                   Meer informatie
                 </a>
@@ -93,6 +93,9 @@
           </li>
         {{/each}}
       </ul>
+      {{#if showToast}}
+        <span class="toast" id={{toastId}}><p>{{showToast}}</p></span>
+      {{/if}}
     {{else}}
       <article>
         <h2>Sorry!</h2>
@@ -123,7 +126,7 @@
               <p class="memberDate">Lid sinds 19-05-2023</p>
             </div>
             <label class="groupLabel" for="{{id}}">
-              <a href="/groups/{{name}}">
+              <a href="/groups/{{id}}">
                 <i id="joinIcon" class="fa-solid fa-circle-info"></i>
                 Meer informatie
               </a>
@@ -132,5 +135,8 @@
         </li>
       {{/each}}
     </ul>
+    {{#if showToast}}
+      <span class="toast" id={{toastId}}><p>{{showToast}}</p></span>
+    {{/if}}
   </section>
 </main>

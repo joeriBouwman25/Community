@@ -4,6 +4,14 @@ const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const tabs = document.querySelectorAll("footer nav a");
 
+const hasToast = document.querySelectorAll(".toast");
+if (hasToast) {
+  const showToast = () => {
+    hasToast.forEach((toast) => toast.classList.remove("toast"));
+  };
+  setTimeout(showToast, 1000);
+}
+
 const memberList = document.querySelector(".members ul");
 const memberCount = document.querySelectorAll(".members ul li");
 const showMoreButton = document.getElementById("showAllMembers");
@@ -29,19 +37,37 @@ if (memberCount) {
 const groupTabs = document.querySelectorAll(".groupTabs h2");
 const groupSections = document.querySelectorAll(".groups section");
 if (groupTabs) {
+  groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
+  groupSections.forEach((section) => section.classList.add("hidden"));
+
+  if (typeof Storage === "undefined") {
+    console.error("Local storage is not supported.");
+  }
+
+  let activeTab = localStorage.getItem("activeTab");
+  if (activeTab === "ontdekken") {
+    groupTabs[0].classList.add("activeTab");
+    groupSections[0].classList.remove("hidden");
+  } else {
+    groupTabs[1].classList.add("activeTab");
+    groupSections[1].classList.remove("hidden");
+  }
+
   groupTabs.forEach((tab, index) => {
     tab.addEventListener("click", () => {
       if (!tab.classList.contains("activeTab")) {
-        groupTabs.forEach((tab) => {
-          tab.classList.remove("activeTab");
-        });
-        tab.classList.add("activeTab");
+        groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
+        groupSections.forEach((section) => section.classList.add("hidden"));
 
-        groupSections.forEach((section) => {
-          section.classList.add("hidden");
-        });
-        groupSections[index].classList.remove("hidden");
+        activeTab === "ontdekken"
+          ? (activeTab = "mijngroepen")
+          : (activeTab = "ontdekken");
       }
+
+      tab.classList.add("activeTab");
+      groupSections[index].classList.remove("hidden");
+
+      localStorage.setItem("activeTab", activeTab);
     });
   });
 }

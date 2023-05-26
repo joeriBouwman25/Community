@@ -45,7 +45,7 @@ export const findMyInterestGroups = async (user) => {
 };
 
 export const findOneGroup = async (query) => {
-  const group = await Groups.findOne({ name: query }).lean();
+  const group = await Groups.findOne({ id: query }).lean();
   return group;
 };
 

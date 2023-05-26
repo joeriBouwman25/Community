@@ -643,6 +643,37 @@ dialog form button:last-of-type {
   border: 1px solid var(--danger);
 }
 
+#signoffToast,
+#signupToast {
+  position: fixed;
+  top: 95vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--secondary-color);
+  border-radius: 2em;
+  padding: 0.5em 1em;
+  width: 80%;
+  opacity: 0;
+  transition: 1s;
+  box-shadow: var(--backdrop-shadow);
+}
+
+#signoffToast p,
+#signupToast p {
+  color: #fff;
+  text-align: center;
+}
+
+#signoffToast {
+  background-color: var(--danger);
+}
+
+.toast {
+  opacity: 1 !important;
+  transition: 0.5s !important;
+  top: 85vh !important;
+}
+
 .chooseGroups {
   flex-direction: column;
   overflow: inherit !important;
