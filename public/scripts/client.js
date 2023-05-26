@@ -4,6 +4,37 @@ const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 const tabs = document.querySelectorAll("footer nav a");
 
+const isOnboarding = document.getElementById("progressFooter");
+const onboardingSections = document.querySelectorAll(".onboarding article");
+const nextButton = document.getElementById("nextButton");
+const progress = document.getElementById("progress");
+if (isOnboarding) {
+  let progressWidth = 0;
+  const checkStep = () => {
+    console.log(progressWidth);
+    if (progressWidth === 20) {
+      onboardingSections[4].classList.add("inActive");
+    } else if (progressWidth === 40) {
+      onboardingSections[3].classList.add("inActive");
+    } else if (progressWidth === 60) {
+      onboardingSections[2].classList.add("inActive");
+    } else if (progressWidth === 80) {
+      onboardingSections[1].classList.add("inActive");
+      const newLink = document.createElement("a");
+      newLink.href = "/chooseGroups";
+      isOnboarding.insertAdjacentElement("afterbegin", newLink);
+      newLink.insertAdjacentElement("afterbegin", nextButton);
+    } else if (progressWidth === 100) {
+      onboardingSections[0].classList.add("inActive");
+    }
+  };
+  nextButton.addEventListener("click", () => {
+    progressWidth += 20;
+    progress.style.width = progressWidth + "%";
+    checkStep();
+  });
+}
+
 const hasToast = document.querySelectorAll(".toast");
 if (hasToast) {
   const showToast = () => {
@@ -34,9 +65,11 @@ if (memberCount) {
   }
 }
 
+const check = document.getElementById("tabNav");
 const groupTabs = document.querySelectorAll(".groupTabs h2");
 const groupSections = document.querySelectorAll(".groups section");
-if (groupTabs) {
+if (check) {
+  console.log(groupTabs);
   groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
   groupSections.forEach((section) => section.classList.add("hidden"));
 

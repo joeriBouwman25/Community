@@ -734,65 +734,39 @@ header img {
   border-radius: 4px;
 }
 
-.onboarding {
-  margin: 0;
-  overflow: hidden;
+.onboarding article {
+  background-color: #fff;
+  height: 100%;
+  position: absolute;
+  transition: 2s;
+}
+
+.onboarding .inActive {
+  transform: translate(-50em);
+}
+
+.onboarding article img {
+  width: 100%;
+  height: 50vh;
+  object-fit: cover;
+}
+
+.onboarding article h1 {
+  color: #0070c0;
+  font-size: 1.8rem;
+  margin: 1em 0;
+  font-size: 1.7em;
 }
 
 .onboarding button {
-  right: 0;
-  bottom: 56px;
-  position: fixed;
-  margin-right: 16px;
-  margin-bottom: 16px;
   color: #ffffff;
   background-color: var(--secondary-color);
-  height: 42px;
-  padding: 0 16px;
-
+  padding: 0.5em 1em;
   font-size: 0.9rem;
-  min-width: 0;
-
-  min-height: 36px;
-  font-family: metropolis, sans-serif;
-  font-weight: 500;
   line-height: 1.75;
   border-radius: 2em;
   border-style: none;
-  text-transform: none;
-}
-
-.onboarding section {
-  min-height: 100%;
-}
-
-.backDoor {
-  background-color: #fff;
-  position: relative;
-  margin: 0 auto;
-  border: solid 4px #013672;
-  border-left: solid 1px #013672;
-}
-
-.onboarding .door {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #0055b3;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  transform-origin: left;
-  /*Speed of the Door animation*/
-  transition: all 3.5s ease-in-out;
-  border-radius: 0 15px 15px 0;
-}
-
-.doorOpen {
-  /*prespectiv creates the door open effect*/
-  transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px)
-    rotateY(-105deg);
+  margin: 0 1em;
 }
 
 .onboarding section > h1 {
@@ -801,43 +775,28 @@ header img {
   margin: 2em 0 10px 0;
 }
 
-.onboarding h2 {
-  color: #fff;
-  font-weight: 500;
-  margin-top: 5em;
+.onboarding ul {
+  list-style-type: disc;
+  padding: 1em;
 }
 
-.onboarding section a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
-  align-self: flex-end;
-  margin: 16px;
+.onboaridng ul li::marker {
+  color: var(--primary-color);
 }
 
-.onboarding img {
-  opacity: 1;
-  transition: 0.5s;
+#progressFooter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   width: 100%;
-  height: 50%;
-  object-fit: cover;
+  position: fixed;
+  bottom: 2em;
+  z-index: 20;
 }
 
 .contain {
   object-fit: contain !important;
-  background-color: #d0ddcd;
-}
-
-.onboarding article h1 {
-  color: #0070c0;
-  font-size: 1.8rem;
-  margin: 1em;
-  font-size: 1.7em;
-  text-align: center;
-}
-
-.onboarding article p {
-  margin: 1em;
+  background-color: #f2f2f2;
 }
 
 .index {
@@ -870,16 +829,15 @@ header img {
 .progressbar {
   height: 0.2em;
   width: 100%;
-  background-color: #9dcbc7;
+  background-color: #c5c5c5;
   margin: 1em 0;
-  position: absolute;
-  bottom: 1em;
 }
 
 .progress {
   height: 0.2em;
   width: 0%;
   background-color: var(--secondary-color);
+  transition: 0.5s;
 }
 
 .progress2 {

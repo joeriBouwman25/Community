@@ -6,13 +6,16 @@ export const renderIndex = (req, res) => {
   res.render("index", { layout: "detail" });
 };
 
-export const renderOnboarding = async (req, res) => {
-  if (req.path === "/onboarding/chooseGroups") {
-    const allGroups = await database.findAllGroups();
-    res.render(`${req.path.slice(1)}`, { allGroups, layout: "detail" });
-  } else {
-    res.render(`${req.path.slice(1)}`, { layout: "detail" });
-  }
+export const renderOnboarding = (req, res) => {
+  res.render("onboarding", { layout: "detail" });
+};
+
+export const renderChooseGroups = async (req, res) => {
+  const allGroups = await database.findAllGroups();
+  res.render("chooseGroups", {
+    allGroups,
+    layout: "detail",
+  });
 };
 
 export const renderCreateAPost = async (req, res) => {

@@ -16,11 +16,12 @@ router
   .get("/profile", uiController.renderProfile)
 
   .get("/onboarding", uiController.renderOnboarding)
-  .get("/onboarding/*", uiController.renderOnboarding)
+  .get("/chooseGroups", uiController.renderChooseGroups)
+  .post("/onboarding/choosegroups", databaseController.uploadGroups)
 
   .post("/", databaseController.findUserforPrikBord)
   .post("/post", upload.single("file"), databaseController.createMessageInDB)
-  .post("/onboarding/choosegroups", databaseController.uploadGroups)
+
   .post("/reactions/*", databaseController.postReaction)
   .post("/postSettings", databaseController.handlePostsettings)
   .post("/deleteReaction", databaseController.deleteReaction)
