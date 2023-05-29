@@ -749,15 +749,42 @@ header img {
 
 .onboarding article img {
   width: 100%;
-  height: 50vh;
+  height: 40vh;
   object-fit: cover;
 }
 
+.onboarding svg {
+  width: 40%;
+  fill: var(--primary-color);
+  text-align: center;
+  margin: 1em auto;
+  display: block;
+}
+
+.onboarding h3 {
+  padding: 0.5em 1em;
+}
+
 .onboarding article h1 {
-  color: #0070c0;
-  font-size: 1.8rem;
-  margin: 1em 0;
-  font-size: 1.7em;
+  color: var(--primary-color);
+  padding: 0.5em 0;
+  border-bottom: var(--divider);
+  font-size: 1.5em;
+}
+
+.onboarding article p {
+  padding: 1em 0;
+  border-bottom: var(--divider);
+}
+
+#isTyping {
+  display: none;
+}
+
+#isTyping:last-of-type {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 24%;
 }
 
 .onboarding button {
@@ -779,10 +806,10 @@ header img {
 
 .onboarding ul {
   list-style-type: disc;
-  padding: 1em;
+  padding: 0 1em;
 }
 
-.onboaridng ul li::marker {
+.onboarding ul li::marker {
   color: var(--primary-color);
 }
 
@@ -792,8 +819,9 @@ header img {
   align-items: flex-end;
   width: 100%;
   position: fixed;
-  bottom: 2em;
+  bottom: 1em;
   z-index: 20;
+  padding: 1em 0.5em 0;
 }
 
 .contain {

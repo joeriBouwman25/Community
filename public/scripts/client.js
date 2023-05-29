@@ -230,12 +230,31 @@ if (groupLabels) {
   });
 }
 
+const isTyping = (data) => {
+  const message = `<span id="isTyping"><p>${data}</p><span>`;
+  chatForm.insertAdjacentHTML("beforebegin", message);
+  let counter = 0;
+  let stateCheck = setInterval(() => {
+    counter++;
+    console.log(counter);
+    if (counter === 5) {
+      clearInterval(stateCheck);
+      document.getElementById("isTyping").remove();
+      counter = 0;
+    }
+  }, 1000);
+};
+
 socket.on("start", (data) => {
   console.log(data);
 });
 
 socket.on("chat message", (data) => {
   displayMessage(data);
+});
+
+socket.on("typing", (data) => {
+  isTyping(data);
 });
 
 const chatForm = document.querySelector(".chatForm");
@@ -248,6 +267,7 @@ if (chatForm) {
   });
 
   chatInput.addEventListener("focus", () => {
+    socket.emit("typing", "De beheerder is aan het typen...");
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
@@ -260,6 +280,7 @@ if (chatForm) {
 
   chatInput.addEventListener("input", (e) => {
     checkInput(e);
+    socket.emit("typing", "De beheerder is aan het typen...");
   });
 
   mediaInput.addEventListener("change", (e) => {
