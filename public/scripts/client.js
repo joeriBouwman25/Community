@@ -78,7 +78,7 @@ if (check) {
   }
 
   let activeTab = localStorage.getItem("activeTab");
-  if (activeTab === "ontdekken") {
+  if (activeTab !== "ontdekken") {
     groupTabs[0].classList.add("activeTab");
     groupSections[0].classList.remove("hidden");
   } else {
@@ -240,30 +240,77 @@ socket.on("chat message", (data) => {
 
 const chatForm = document.querySelector(".chatForm");
 const chatInput = document.querySelector(".chatInput");
-if (chatForm)
+const chatButton = document.querySelector(".chatForm button");
+const mediaInput = document.querySelector(".chatForm input[type='file']");
+if (chatForm) {
+  document.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+  });
+
+  chatInput.addEventListener("focus", () => {
+    window.scrollTo(0, 0);
+    document.body.scrollTop = 0;
+  });
+
+  const checkInput = (e) => {
+    e.target.value.replace(/\s/g, "").length
+      ? chatButton.classList.add("activeButton")
+      : chatButton.classList.remove("activeButton");
+  };
+
+  chatInput.addEventListener("input", (e) => {
+    checkInput(e);
+  });
+
+  mediaInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    const li = document.createElement("li");
+    li.className = "outgoing";
+
+    li.innerHTML = `<h3><span>${
+      document.getElementById("user").textContent
+    }</h3>
+    <img id="chatImg" src="${URL.createObjectURL(file)}" alt="image">`;
+
+    ul.appendChild(li);
+    window.scrollTo(0, document.body.scrollHeight + 15);
+
+    socket.emit("upload", {
+      type: "file",
+      value: file.name,
+      file: file,
+      user: user.textContent,
+    });
+  });
+
   chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
     socket.emit("chat message", {
+      type: "message",
       value: chatInput.value,
       user: user.textContent,
     });
+
     chatInput.value = "";
+    chatInput.value.replace(/\s/g, "").length
+      ? chatButton.classList.add("activeButton")
+      : chatButton.classList.remove("activeButton");
   });
+}
 
 export const displayMessage = (data) => {
   const li = document.createElement("li");
   li.innerHTML = `
-      <h3><span>${data.user}</h3>
-      <p>${data.value}</p>
-      `;
-  if (user.textContent === data.user) {
-    li.className = "outgoing";
-  } else {
-    li.className = "incoming";
-  }
-  ul.appendChild(li);
+    <h3><span>${data.user}</h3>
+    <p>${data.value}</p>
+    `;
 
-  // scroll to the bottom
+  user.textContent === data.user
+    ? (li.className = "outgoing")
+    : (li.className = "incoming");
+
+  ul.appendChild(li);
   window.scrollTo(0, document.body.scrollHeight + 15);
 };
 
@@ -277,27 +324,3 @@ if (loadingState) {
     }
   }, 100);
 }
-
-// const showMore = document.getElementById("textContainer");
-// if (showMore) {
-//   showMoreOrLessText("textContainer", 80);
-// }
-
-// function showMoreOrLessText(containerId, characterLimit) {
-//   const container = document.getElementById(containerId);
-//   const content = container.innerHTML;
-
-//   if (content.length > characterLimit) {
-//     const truncatedContent = content.slice(0, characterLimit);
-//     const showMoreButton = document.createElement("button");
-//     showMoreButton.textContent = "Show More";
-//     showMoreButton.addEventListener("click", () => {
-//       container.innerHTML === content
-//         ? (container.innerHTML = truncatedContent)
-//         : (container.innerHTML = content);
-//     });
-
-//     container.innerHTML = truncatedContent;
-//   }
-//   container.appendChild(showMoreButton);
-// }

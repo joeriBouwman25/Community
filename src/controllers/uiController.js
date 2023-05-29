@@ -32,7 +32,10 @@ export const renderChat = async (req, res) => {
   const allUsers = await database.findAllUsers();
   req.session.user.admin
     ? res.render("rooms", { allUsers })
-    : res.render("chat", { user });
+    : res.render("chat", {
+        user,
+        layout: "detail",
+      });
 };
 
 export const renderChatForAdmin = async (req, res) => {
@@ -41,7 +44,12 @@ export const renderChatForAdmin = async (req, res) => {
   res.render("chat", {
     user,
     roomName,
+    layout: "detail",
   });
+};
+
+export const confirmUpload = async (req, res) => {
+  console.log(req.params);
 };
 
 export const renderPrikbord = async (req, res) => {

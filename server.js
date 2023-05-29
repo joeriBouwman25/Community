@@ -16,6 +16,7 @@ import compression from "compression";
 import cookieSession from "cookie-session";
 
 import router from "./src/routes/router.js";
+import { readFile, readFileSync, writeFile } from "fs";
 
 const port = process.env.PORT || 3000;
 const url = process.env.DB_URL;
@@ -57,6 +58,15 @@ io.on("connection", (socket) => {
   socket.on("chat message", (data) => {
     io.emit("chat message", data);
   });
+
+  // socket.on("upload", (data) => {
+  //   writeFile("/images", data.file, (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //   });
+  //   io.emit("chat message", data);
+  // });
 
   socket.on("disconnect", () => {
     console.log("disconnected");
