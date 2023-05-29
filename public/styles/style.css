@@ -421,6 +421,11 @@ dialog form button:last-of-type {
   justify-content: flex-start;
 }
 
+.chat .detailHeader {
+  position: fixed;
+  top: 0;
+}
+
 .detailheader a {
   color: #ffffff;
   margin: 0 1em 0 2em;
