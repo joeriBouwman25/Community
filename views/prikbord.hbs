@@ -60,8 +60,10 @@
                 <nav class="editable hidden">
                   <ul id="edit">
                     <li>
-                      <i class="fa-regular fa-pencil"></i>
-                      Bewerken
+                      <a href="/updatePost/{{_id}}">
+                        <i class="fa-regular fa-pencil"></i>
+                        Bewerken
+                      </a>
                     </li>
                     <li id="deletePost">
                       <i class="fa-regular fa-trash-can"></i>
@@ -91,7 +93,7 @@
             {{#if file}}
               <img src="/images/{{file}}" alt="img" width="200" height="200" />
             {{/if}}
-            <p>{{message}}</p>
+            <p class="prikbordMessage">{{message}}</p>
             {{#if reactions}}
               <a class="reactionCount" href="/reactions/{{_id}}">
                 <p class="reactionCount">{{reactions.length}} reacties</p>

@@ -14,8 +14,7 @@
     {{#if message.file}}
       <img src="/images/{{message.file}}" alt="img" width="200" height="200" />
     {{/if}}
-    <p>{{message.message}}</p>
-    <h2>Reacties</h2>
+    <p class="message">{{message.message}}</p>
     {{#if message.reactions}}
       <ul class="reactions">
         {{#each message.reactions}}
@@ -23,14 +22,17 @@
             <img src="/images/{{avatar}}" alt="profielfoto" />
             <article>
               <h3>{{user}}</h3>
-              <p>
-                {{reaction}}
-              </p>
+              <form class="updateForm" action="/update/{{@root.message._id}}" method="post">
+                <input class="hidden" name="reactionId" value={{reactionID}}>
+                <input disabled value={{reaction}} name="update" id="reaction"/>
+                <button class="updateButton hidden">Opslaan</button>
+              </form>
+
               {{#if editable}}
                 <i id="editable" class="fa-light fa-ellipsis-vertical"></i>
                 <nav class="editable hidden">
                   <ul id="edit">
-                    <li>
+                    <li id="editReaction">
                       <i class="fa-regular fa-pencil"></i>
                       Bewerken
                     </li>
@@ -72,7 +74,7 @@
       </label>
       <form action="/reactions/{{message._id}}" method="POST">
         <input type="text" name="reaction" id="reaction" />
-        <input type="submit" value="Reageer" />
+        <input type="submit" value="Reageren" />
       </form>
     </footer>
   </article>

@@ -27,6 +27,19 @@ export const renderCreateAPost = async (req, res) => {
   });
 };
 
+export const renderUpdatePost = async (req, res) => {
+  const postId = req.params["0"];
+  const user = req.session.user;
+  const post = await database.findOneMessage(postId);
+  const myGroups = await database.findMyInterestGroups(user);
+
+  res.render("updatePost", {
+    post,
+    myGroups,
+    layout: "detail",
+  });
+};
+
 export const renderChat = async (req, res) => {
   const user = req.session.user;
   const allUsers = await database.findAllUsers();

@@ -2,26 +2,35 @@
   <a href="/prikbord">
     <i class="fa-solid fa-arrow-left"></i>
   </a>
-  <h1>Nieuw bericht</h1>
+  <h1>Bewerken</h1>
 </header>
 <main class="post">
   <section>
     <form
       class="postForm"
-      action="/post"
+      action="/post/update/{{post._id}}"
       method="post"
       enctype="multipart/form-data"
     >
       <label for="title">Titel</label>
-      <input type="text" id="title" name="title" required />
+      <input
+        type="text"
+        value={{post.title}}
+        id="title"
+        name="title"
+        required
+      />
       <label for="message">Bericht</label>
-      <textarea id="message" name="message" required></textarea>
+      <textarea id="message" name="message" required>{{post.message}}</textarea>
       <label for="">Afbeelding</label>
       <fieldset id="imageField">
         <label class="upload" for="image">
           <i class="fa-regular fa-image"></i>
-          <p>Uploaden</p>
+          <p>Upload</p>
         </label>
+        {{#if post.file}}
+          <img id="postImage" src="/images/{{post.file}}" alt="" />
+        {{/if}}
         <input id="image" type="file" name="file" />
       </fieldset>
       <label for="group">Interesse groep</label>
@@ -30,7 +39,7 @@
           <option value="{{id}}">{{name}}</option>
         {{/each}}
       </select>
-      <input type="submit" value="Plaats bericht" />
+      <input type="submit" value="Bericht updaten" />
     </form>
   </section>
 </main>

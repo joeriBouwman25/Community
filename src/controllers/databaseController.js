@@ -33,6 +33,26 @@ export const findAllMessages = async (req, res) => {
   return myMessages;
 };
 
+export const findOneMessage = async (query) => {
+  const message = await Messages.findOne({ _id: query }).lean();
+  return message;
+};
+
+export const updatePost = async (req, res) => {
+  const messageId = req.params["0"];
+  const post = {
+    title: req.body.title,
+    message: req.body.message,
+    group: req.body.group,
+  };
+
+  if (req.file) {
+    post.file = req.file.filename;
+  }
+  await Messages.updateOne({ _id: messageId }, { $set: post });
+  res.redirect("/prikbord");
+};
+
 export const findAllGroups = async () => {
   const allGroups = await Groups.find({}).lean();
   return allGroups;
@@ -109,6 +129,18 @@ export const handlePostsettings = async (req, res) => {
   res.redirect("/prikbord");
 };
 
+export const updateReaction = async (req, res) => {
+  const postId = req.params["0"];
+  const reaction = req.body.update;
+  const reactionId = req.body.reactionId;
+
+  await Messages.updateOne(
+    { _id: postId, "reactions.reactionID": reactionId },
+    { $set: { "reactions.$.reaction": reaction } }
+  );
+  res.redirect(`/reactions/${postId}`);
+};
+
 export const deleteReaction = async (req, res) => {
   const postID = req.body.delete.split("/").shift();
   const reactionID = req.body.delete.split("/").pop();
@@ -138,6 +170,7 @@ export const removeGroupForUser = async (req, res) => {
     { _id: req.session.user._id },
     { $pull: { groups: req.body.afmelden } }
   );
-  req.session.user.groups.pop(req.body.afmelden);
+  const groups = req.session.user.groups;
+  groups.splice(groups.indexOf(req.body.afmelden), 1);
   await renderGroups(req, res);
 };

@@ -35,6 +35,22 @@ if (isOnboarding) {
   });
 }
 
+const uploadImage = document.querySelector(".post #image");
+if (uploadImage) {
+  uploadImage.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    const element = `<img id="postImage" src="${URL.createObjectURL(
+      file
+    )}" alt="image">`;
+    if (document.getElementById("postImage")) {
+      document.getElementById("postImage").remove();
+    }
+    document
+      .getElementById("imageField")
+      .insertAdjacentHTML("beforeend", element);
+  });
+}
+
 const hasToast = document.querySelectorAll(".toast");
 if (hasToast) {
   const showToast = () => {
@@ -69,7 +85,6 @@ const check = document.getElementById("tabNav");
 const groupTabs = document.querySelectorAll(".groupTabs h2");
 const groupSections = document.querySelectorAll(".groups section");
 if (check) {
-  console.log(groupTabs);
   groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
   groupSections.forEach((section) => section.classList.add("hidden"));
 
@@ -147,9 +162,11 @@ socket.on("new post", (post) => {
 });
 
 const deletePostButtons = document.querySelectorAll("#deletePost");
+const updatePostButtons = document.querySelectorAll("#editReaction");
 const dialogs = document.getElementsByClassName("dialog");
 const editButtons = document.querySelectorAll("#editable");
 const menu = document.getElementsByClassName("editable");
+const saveButton = document.getElementsByClassName("updateButton");
 if (editButtons) {
   editButtons.forEach((button, index) =>
     button.addEventListener("click", () => {
@@ -161,6 +178,16 @@ if (editButtons) {
     deleteButton.addEventListener("click", (e) => {
       menu[index].classList.toggle("hidden");
       dialogs[index].showModal();
+    });
+  });
+
+  updatePostButtons.forEach((updateButton, index) => {
+    updateButton.addEventListener("click", () => {
+      const input = document.querySelectorAll("#reaction");
+      input[index].disabled = false;
+      input[index].focus();
+      saveButton[index].classList.remove("hidden");
+      menu[index].classList.add("hidden");
     });
   });
 }
@@ -231,13 +258,12 @@ if (groupLabels) {
 }
 
 const isTyping = (data) => {
-  const message = `<span id="isTyping"><p>${data}</p><span>`;
+  const message = `<p id="isTyping">${data}</p>`;
   chatForm.insertAdjacentHTML("beforebegin", message);
   let counter = 0;
   let stateCheck = setInterval(() => {
     counter++;
-    console.log(counter);
-    if (counter === 5) {
+    if (counter === 1) {
       clearInterval(stateCheck);
       document.getElementById("isTyping").remove();
       counter = 0;
@@ -267,7 +293,6 @@ if (chatForm) {
   });
 
   chatInput.addEventListener("focus", () => {
-    socket.emit("typing", "De beheerder is aan het typen...");
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
@@ -280,7 +305,10 @@ if (chatForm) {
 
   chatInput.addEventListener("input", (e) => {
     checkInput(e);
-    socket.emit("typing", "De beheerder is aan het typen...");
+    socket.emit(
+      "typing",
+      "De beheerder is aan het typen<span></span><span></span><span></span>"
+    );
   });
 
   mediaInput.addEventListener("change", (e) => {
