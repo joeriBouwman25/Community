@@ -86,7 +86,7 @@ h2 {
 }
 
 h3 {
-  font-size: 0.9em;
+  font-size: 1rem;
   color: #1b2032;
   font-weight: 600;
   word-break: initial;
@@ -206,7 +206,7 @@ article {
   font-weight: 300;
   color: #080808;
   padding: 0;
-  font-size: 14px;
+  font-size: 1rem;
   grid-area: 2;
 }
 
@@ -225,23 +225,18 @@ article {
   margin: 0;
 }
 
-.prikbord article header p {
-  font-size: 12px;
-}
-
 .prikbord p {
   padding: 1em 0;
 }
 
 .prikbord .reactionCount {
   align-self: flex-end;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #607d8b;
   padding: 0.5em 0;
 }
 
 .prikbord h2 {
-  font-size: 1rem;
   padding: 1em 0 0 0;
 }
 
@@ -258,8 +253,7 @@ article {
 .prikbord footer label {
   border: none;
   color: #607d8b;
-  margin: 1em 0em 0em 0em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
 }
@@ -277,7 +271,6 @@ article {
   display: flex;
   flex-direction: row-reverse;
   margin: 0.5em 0 0 0;
-  width: 80%;
 }
 
 .prikbord .prikbordMessage {
@@ -285,7 +278,7 @@ article {
 }
 
 .prikbord form input[type="text"] {
-  font-size: 1em;
+  font-size: 1rem;
   border: none;
   border-radius: 2em;
   margin: 0.3em;
@@ -299,6 +292,7 @@ article {
   height: 2.5em;
   background-color: var(--primary-color);
   color: white;
+  font-size: 1rem;
 }
 
 .prikbord .newMessage {
@@ -479,8 +473,10 @@ dialog form button:last-of-type {
 }
 
 .post img {
-  height: 10em;
-  margin: 0 3em;
+  height: 8em;
+  width: 8em;
+  margin: 0 0 0 1em;
+  object-fit: contain;
 }
 
 .upload {
@@ -574,6 +570,10 @@ dialog form button:last-of-type {
   padding: 1em 0 0 0;
 }
 
+.reaction #reactionP {
+  padding: 0;
+}
+
 .reaction article form {
   flex-direction: row;
   align-items: center;
@@ -611,6 +611,10 @@ dialog form button:last-of-type {
   width: 100%;
 }
 
+.reactions input::backdrop {
+  display: none;
+}
+
 .reaction .updateForm {
   width: 100%;
   justify-content: space-between;
@@ -645,14 +649,14 @@ dialog form button:last-of-type {
 }
 
 .chooseGroups li article div {
-  padding: 1em;
+  padding: 1em 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .chooseGroups h3 {
-  color: var(--secondary-color);
+  font-size: 1rem;
 }
 
 .chooseGroups li article .description {
@@ -666,7 +670,7 @@ dialog form button:last-of-type {
   border-radius: 2em;
   color: #565656;
   border: 1px solid #979797;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 1em;
 }
 
@@ -678,7 +682,7 @@ dialog form button:last-of-type {
 #afmelden {
   padding: 0.5em 1em;
   border-radius: 2em;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: 1em;
   background-color: transparent;
 }
@@ -721,7 +725,7 @@ dialog form button:last-of-type {
 .toast {
   opacity: 1 !important;
   transition: 0.5s !important;
-  top: 85% !important;
+  top: 80% !important;
 }
 
 .chooseGroups {
@@ -799,6 +803,36 @@ header img {
   width: 100%;
   height: 40vh;
   object-fit: cover;
+  clip-path: polygon(
+    100% 0%,
+    0% 0%,
+    0% 94.54%,
+    4% 95.57%,
+    8% 96.46%,
+    12% 97.17%,
+    16% 97.68%,
+    20% 97.95%,
+    24% 97.98%,
+    28% 97.78%,
+    32% 97.34%,
+    36% 96.68%,
+    40% 95.84%,
+    44% 94.84%,
+    48% 93.73%,
+    52% 92.55%,
+    56% 91.34%,
+    60% 90.17%,
+    64% 89.06%,
+    68% 88.08%,
+    72% 87.25%,
+    76% 86.61%,
+    80% 86.19%,
+    84% 86.01%,
+    88% 86.06%,
+    92% 86.36%,
+    96% 86.88%,
+    100% 87.61%
+  );
 }
 
 .onboarding svg {
@@ -818,6 +852,15 @@ header img {
   padding: 0.5em 0;
   border-bottom: var(--divider);
   font-size: 1.5em;
+}
+
+.onboardingDiv {
+  flex-direction: column;
+  align-items: flex-start !important;
+}
+
+.onboardingDiv p {
+  color: #565656;
 }
 
 .onboarding article p {
@@ -1072,7 +1115,7 @@ header img {
   border-radius: 2em;
   padding: 10px;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .chat input[type="file"] {
@@ -1147,13 +1190,13 @@ header img {
 }
 
 .profile section:nth-of-type(3) > div p {
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 .profile section span {
   color: #3a3e41;
   font-weight: 200;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .profile section p {
@@ -1185,8 +1228,7 @@ header img {
 }
 
 .profile ul li article p {
-  font-size: 14px;
-  color: #080808;
+  font-size: 16px;
 }
 
 .toggle input[type="checkbox"] {
@@ -1365,11 +1407,6 @@ header img {
 
 .groups article div {
   width: 100%;
-}
-
-.groups ul li article p {
-  font-size: 14px;
-  color: #080808;
 }
 
 .groups section article button {

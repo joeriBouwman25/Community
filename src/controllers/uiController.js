@@ -112,11 +112,11 @@ export const renderGroups = async (req, res) => {
   let toastId;
   if (req.body.aanmelden) {
     const toastText = await database.findOneGroup(req.body.aanmelden);
-    showToast = `Aangemeld voor de groep ${toastText.name}`;
+    showToast = `Aangemeld voor ${toastText.name}`;
     toastId = "signupToast";
   } else if (req.body.afmelden) {
     const toastText = await database.findOneGroup(req.body.afmelden);
-    showToast = `Afgemeld van de groep ${toastText.name}`;
+    showToast = `Afgemeld van ${toastText.name}`;
     toastId = "signoffToast";
   }
   const user = req.session.user;
