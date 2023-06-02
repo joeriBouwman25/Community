@@ -23,10 +23,14 @@
             <article>
               <h3>{{user}}</h3>
               <form class="updateForm" action="/update/{{@root.message._id}}" method="post">
+                {{#if editable}}
                 <input class="hidden" name="reactionId" value={{reactionID}}>
                 <input disabled class="hidden" value="{{reaction}}" name="update" id="reaction"/>
                 <p id="reactionP">{{reaction}}</p>
                 <button class="updateButton hidden">Opslaan</button>
+                {{else}}
+                <p>{{reaction}}</p>
+                {{/if}}
               </form>
 
               {{#if editable}}
@@ -69,10 +73,6 @@
       </ul>
     {{/if}}
     <footer>
-      {{!-- <label class="likes" for="">
-        <i class="fa-regular fa-thumbs-up"></i>
-        <p>3</p>
-      </label> --}}
       <form action="/reactions/{{message._id}}" method="POST">
         <input type="text" name="reaction" id="reaction" />
         <input type="submit" value="Reageren" />

@@ -184,8 +184,9 @@ if (editButtons) {
   updatePostButtons.forEach((updateButton, index) => {
     updateButton.addEventListener("click", () => {
       const input = document.querySelectorAll("#reaction");
-      const p = document.getElementById("reactionP");
-      p.classList.add("hidden");
+      const p = document.querySelectorAll("#reactionP");
+      console.log(p);
+      p[index].classList.add("hidden");
       input[index].classList.remove("hidden");
       input[index].disabled = false;
       input[index].focus();
