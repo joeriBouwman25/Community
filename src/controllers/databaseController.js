@@ -108,6 +108,16 @@ export const postReaction = async (req, res) => {
 
 export const uploadGroups = async (req, res) => {
   const groups = Object.keys(req.body);
+  let userGroup;
+  const userGroups = [];
+  groups.forEach((group) => {
+    userGroup = {
+      id: group,
+      notification: false,
+    };
+    userGroups.push(userGroup);
+  });
+
   await Groups.updateMany(
     { id: groups },
     { $push: { members: req.session.user } }

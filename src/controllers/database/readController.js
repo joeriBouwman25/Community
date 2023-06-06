@@ -37,6 +37,7 @@ export const findAllMessages = async (req, res) => {
   return myMessages;
 };
 
+// GROUPS
 export const findOneGroup = async (query) => {
   const group = await Groups.findOne({ id: query }).lean();
   return group;
