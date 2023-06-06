@@ -1,11 +1,15 @@
 import { Messages } from "../models/messages.js";
 import * as database from "./databaseController.js";
 
+// INLOG
+// **************
 export const renderIndex = (req, res) => {
   req.session = null;
   res.render("index", { layout: "detail" });
 };
 
+// ONBOARDING
+// **************
 export const renderOnboarding = (req, res) => {
   res.render("onboarding", { layout: "detail" });
 };
@@ -15,6 +19,30 @@ export const renderChooseGroups = async (req, res) => {
   res.render("chooseGroups", {
     allGroups,
     layout: "detail",
+  });
+};
+
+// PRIKBORD
+// **************
+export const renderPrikbord = async (req, res) => {
+  const user = req.session.user;
+  const allMessages = await database.findAllMessages(req, res);
+  const myGroups = await database.findMyInterestGroups(user);
+
+  allMessages.forEach((message) => {
+    const group = myGroups.find((group) => group.id === message.group);
+    if (group) {
+      message.color = group.color;
+      message.name = group.name;
+    }
+    if (message.user === user.name) {
+      message.editable = true;
+    }
+  });
+
+  await res.render("prikbord", {
+    allMessages,
+    user,
   });
 };
 
@@ -40,6 +68,28 @@ export const renderUpdatePost = async (req, res) => {
   });
 };
 
+export const renderReactionPage = async (req, res) => {
+  const user = req.session.user;
+  const postID = req.path.split("/").pop();
+  const message = await Messages.findOne({
+    _id: postID,
+  }).lean();
+
+  message.reactions.forEach((reaction) => {
+    if (reaction.user === user.name) {
+      reaction.editable = true;
+    }
+  });
+
+  res.render("reactions", {
+    message,
+    postID,
+    layout: "detail",
+  });
+};
+
+// CHAT
+// **************
 export const renderChat = async (req, res) => {
   const user = req.session.user;
   const allUsers = await database.findAllUsers();
@@ -61,52 +111,8 @@ export const renderChatForAdmin = async (req, res) => {
   });
 };
 
-export const confirmUpload = async (req, res) => {
-  console.log(req.params);
-};
-
-export const renderPrikbord = async (req, res) => {
-  const user = req.session.user;
-  const allMessages = await database.findAllMessages(req, res);
-  const myGroups = await database.findMyInterestGroups(user);
-
-  allMessages.forEach((message) => {
-    const group = myGroups.find((group) => group.id === message.group);
-    if (group) {
-      message.color = group.color;
-      message.name = group.name;
-    }
-    if (message.user === user.name) {
-      message.editable = true;
-    }
-  });
-
-  await res.render("prikbord", {
-    allMessages,
-    user,
-  });
-};
-
-export const renderReactionPage = async (req, res) => {
-  const user = req.session.user;
-  const postID = req.path.split("/").pop();
-  const message = await Messages.findOne({
-    _id: postID,
-  }).lean();
-
-  message.reactions.forEach((reaction) => {
-    if (reaction.user === user.name) {
-      reaction.editable = true;
-    }
-  });
-
-  res.render("reactions", {
-    message,
-    postID,
-    layout: "detail",
-  });
-};
-
+// GROUPS
+// **************
 export const renderGroups = async (req, res) => {
   let showToast;
   let toastId;
@@ -146,6 +152,8 @@ export const renderGroupDetail = async (req, res) => {
   });
 };
 
+// PROFILE
+// **************
 export const renderProfile = async (req, res) => {
   const user = req.session.user;
   const groups = await database.findMyInterestGroups(user);

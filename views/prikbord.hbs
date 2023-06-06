@@ -90,10 +90,10 @@
               {{/if}}
             </header>
             <h2>{{title}}</h2>
+            <p class="prikbordMessage">{{message}}</p>
             {{#if file}}
               <img src="/images/{{file}}" alt="img" width="200" height="200" />
             {{/if}}
-            <p class="prikbordMessage">{{message}}</p>
             {{#if reactions}}
               <a class="reactionCount" href="/reactions/{{_id}}">
                 <p class="reactionCount">{{reactions.length}} reacties</p>

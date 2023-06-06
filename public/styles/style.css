@@ -106,6 +106,9 @@ textarea {
 
 .activeLink {
   color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  font-size: 16px;
 }
 
 .active {
@@ -131,14 +134,17 @@ footer nav {
 }
 
 footer nav a {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
+  font-size: 0;
+  transition: 0.5s;
 }
 
 footer nav a svg {
   fill: #23416c;
   margin-bottom: 4px;
+}
+
+footer nav a i {
+  margin: 0 0.3em;
 }
 
 section {
@@ -217,6 +223,7 @@ article {
   border-radius: 50%;
   margin: 0 0.5em 0 0;
   grid-row: 1 / 3;
+  padding-bottom: 0;
 }
 
 #editable {
@@ -226,24 +233,33 @@ article {
 }
 
 .prikbord p {
-  padding: 1em 0;
+  padding: 0.5em 0 1em 0;
 }
 
 .prikbord .reactionCount {
   align-self: flex-end;
   font-size: 1rem;
   color: #607d8b;
-  padding: 0.5em 0;
+  padding: 0 0 0.2em 0;
 }
 
 .prikbord h2 {
   padding: 1em 0 0 0;
+  margin-bottom: 0;
+}
+
+.prikbord article img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  padding-bottom: 1.5em;
 }
 
 .prikbord article footer {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border-top: var(--divider);
 }
 
 .prikbord article footer a {
@@ -269,12 +285,10 @@ article {
 
 .prikbord form {
   display: flex;
+  width: 100%;
   flex-direction: row-reverse;
   margin: 0.5em 0 0 0;
-}
-
-.prikbord .prikbordMessage {
-  border-bottom: var(--divider);
+  justify-content: flex-end;
 }
 
 .prikbord form input[type="text"] {
@@ -282,19 +296,25 @@ article {
   border: none;
   border-radius: 2em;
   margin: 0.3em;
-  padding: 0.5em;
+  padding: 0.5em 1em;
+  width: 100%;
 }
 
-.prikbord form input[type="submit"] {
+.prikbord form button {
   border: none;
-  padding: 0 1em;
+  display: flex;
+  padding: 0.5em 1em;
   border-radius: 2em;
-  height: 2.5em;
-  background-color: var(--primary-color);
+  height: 2em;
+  background-color: var(--secondary-color);
   color: white;
   font-size: 1rem;
+  align-items: center;
 }
 
+.prikbord form button i {
+  margin: 0;
+}
 .prikbord .newMessage {
   right: 0;
   bottom: 56px;
@@ -582,6 +602,7 @@ dialog form button:last-of-type {
 .reactions li {
   width: 100%;
   display: flex;
+  align-items: center;
   margin: 0.5em 0 1em 0;
   position: relative;
   overflow: visible;
@@ -598,6 +619,7 @@ dialog form button:last-of-type {
   height: 2em;
   border-radius: 50% !important;
   margin: 0 0.5em;
+  padding-bottom: 0;
 }
 
 .reactions input {
@@ -618,7 +640,6 @@ dialog form button:last-of-type {
 .reaction .updateForm {
   width: 100%;
   justify-content: space-between;
-  padding: 1em 0 0 0;
 }
 
 .reactions .updateButton {
@@ -651,7 +672,8 @@ dialog form button:last-of-type {
 .chooseGroups li article div {
   padding: 1em 0;
   display: flex;
-  justify-content: center;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -671,7 +693,7 @@ dialog form button:last-of-type {
   color: #565656;
   border: 1px solid #979797;
   font-size: 1rem;
-  margin: 1em;
+  margin-right: 1em;
 }
 
 .groups .chooseGroups label a {
@@ -781,13 +803,6 @@ header img {
   margin: 1em;
 }
 
-.prikbord article img {
-  width: 100%;
-  object-fit: cover;
-  background-color: #f3f3f3;
-  border-radius: 4px;
-}
-
 .onboarding article {
   background-color: #fff;
   height: 100%;
@@ -796,12 +811,16 @@ header img {
 }
 
 .onboarding .inActive {
-  transform: translate(-50em);
+  transform: translate(-100%);
+}
+
+#nextButton {
+  margin: 0 1em 0 auto;
 }
 
 .onboarding article img {
   width: 100%;
-  height: 40vh;
+  height: 35vh;
   object-fit: cover;
   clip-path: polygon(
     100% 0%,
@@ -884,14 +903,15 @@ header img {
 }
 
 .onboarding button {
-  color: #ffffff;
-  background-color: var(--secondary-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
   padding: 0.5em 1em;
   font-size: 0.9rem;
   line-height: 1.75;
   border-radius: 2em;
-  border-style: none;
   margin: 0 1em;
+  min-width: 6.5em;
+  background-color: transparent;
 }
 
 .onboarding section > h1 {
@@ -911,8 +931,8 @@ header img {
 
 #progressFooter {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: space-between;
   width: 100%;
   position: fixed;
   bottom: 1em;
@@ -1081,7 +1101,7 @@ header img {
   background-color: #fff;
 }
 
-.chat .fa-icons {
+.chat .fa-circle-plus {
   font-size: 1.6rem;
   margin: 0 0.5em 0 0;
   color: var(--secondary-color);
@@ -1221,7 +1241,7 @@ header img {
 .profile ul li article {
   display: flex;
   justify-content: space-between;
-  padding: 0.5em;
+  padding: 0.5em 0;
   align-items: center;
   border-radius: 10px;
   margin: 0.7em 0;
@@ -1275,12 +1295,13 @@ header img {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 1em 0;
 }
 
 .profile section article button {
   border: none;
   padding: 0.5em;
-  width: 75%;
+  width: 100%;
   align-self: center;
   justify-self: center;
   font-size: 1em;
@@ -1291,7 +1312,7 @@ header img {
 }
 
 .profile section article a {
-  width: 95%;
+  width: 100%;
   text-align: center;
 }
 

@@ -7,13 +7,15 @@ const tabs = document.querySelectorAll("footer nav a");
 const isOnboarding = document.getElementById("progressFooter");
 const onboardingSections = document.querySelectorAll(".onboarding article");
 const nextButton = document.getElementById("nextButton");
+const prevButton = document.getElementById("prevButton");
 const progress = document.getElementById("progress");
 if (isOnboarding) {
   let progressWidth = 0;
-  const checkStep = () => {
-    console.log(progressWidth);
+
+  const nextStep = () => {
     if (progressWidth === 20) {
       onboardingSections[4].classList.add("inActive");
+      prevButton.classList.remove("hidden");
     } else if (progressWidth === 40) {
       onboardingSections[3].classList.add("inActive");
     } else if (progressWidth === 60) {
@@ -21,17 +23,41 @@ if (isOnboarding) {
     } else if (progressWidth === 80) {
       onboardingSections[1].classList.add("inActive");
       const newLink = document.createElement("a");
+      newLink.id = "newLink";
       newLink.href = "/chooseGroups";
-      isOnboarding.insertAdjacentElement("afterbegin", newLink);
-      newLink.insertAdjacentElement("afterbegin", nextButton);
+      prevButton.insertAdjacentElement("afterend", newLink);
+      newLink.insertAdjacentElement("beforeend", nextButton);
     } else if (progressWidth === 100) {
       onboardingSections[0].classList.add("inActive");
     }
   };
+
   nextButton.addEventListener("click", () => {
     progressWidth += 20;
     progress.style.width = progressWidth + "%";
-    checkStep();
+    nextStep();
+  });
+
+  const prevStep = () => {
+    if (progressWidth === 0) {
+      onboardingSections[4].classList.remove("inActive");
+      prevButton.classList.add("hidden");
+    } else if (progressWidth === 20) {
+      onboardingSections[3].classList.remove("inActive");
+    } else if (progressWidth === 40) {
+      onboardingSections[2].classList.remove("inActive");
+    } else if (progressWidth === 60) {
+      onboardingSections[1].classList.remove("inActive");
+      document.getElementById("newLink").replaceWith(nextButton);
+    } else if (progressWidth === 80) {
+      onboardingSections[0].classList.remove("inActive");
+    }
+  };
+
+  prevButton.addEventListener("click", () => {
+    progressWidth -= 20;
+    progress.style.width = progressWidth + "%";
+    prevStep();
   });
 }
 
@@ -56,13 +82,13 @@ if (hasToast) {
   const showToast = () => {
     hasToast.forEach((toast) => toast.classList.remove("toast"));
   };
-  setTimeout(showToast, 1000);
+  setTimeout(showToast, 2000);
 }
 
 const memberList = document.querySelector(".members ul");
 const memberCount = document.querySelectorAll(".members ul li");
 const showMoreButton = document.getElementById("showAllMembers");
-if (memberCount) {
+if (showMoreButton) {
   const showMoreH3 = document.querySelector("#showAllMembers h3");
   const showMoreI = document.querySelector("#showAllMembers i");
   if (memberCount.length > 4) {
@@ -185,7 +211,7 @@ if (editButtons) {
     updateButton.addEventListener("click", () => {
       const input = document.querySelectorAll("#reaction");
       const p = document.querySelectorAll("#reactionP");
-      console.log(p);
+
       p[index].classList.add("hidden");
       input[index].classList.remove("hidden");
       input[index].disabled = false;
