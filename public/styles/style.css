@@ -693,9 +693,14 @@ dialog form button:last-of-type {
   color: #565656;
   border: 1px solid #979797;
   font-size: 1rem;
+  margin-right: 1em;
+}
+
+.onboardingLabel {
   margin: 1em 0 0 0;
   width: 100%;
   text-align: center;
+  margin-right: 0 !important;
 }
 
 .groups .chooseGroups label a {
