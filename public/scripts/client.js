@@ -2,7 +2,6 @@ const socket = io();
 
 const ul = document.querySelector("ul");
 const user = document.getElementById("user");
-const tabs = document.querySelectorAll("footer nav a");
 
 const isOnboarding = document.getElementById("progressFooter");
 const onboardingSections = document.querySelectorAll(".onboarding article");
@@ -242,9 +241,9 @@ if (likeButtons) {
 }
 
 const current = window.location.href;
-
-if (tabs) {
-  tabs.forEach((tab) => {
+const pages = document.querySelectorAll("footer nav a");
+if (pages) {
+  pages.forEach((tab) => {
     if (current === tab.href) {
       tab.classList.add("activeLink");
     }

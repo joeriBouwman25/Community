@@ -43,7 +43,7 @@ header {
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   margin: 1rem;
 }
 
@@ -803,11 +803,11 @@ dialog form button:last-of-type {
 }
 
 header img {
-  width: 3em;
-  height: 3em;
+  width: 2em;
+  height: 2em;
   object-fit: cover;
   border-radius: 50%;
-  margin: 1em;
+  margin: 0 1em;
 }
 
 .onboarding article {
