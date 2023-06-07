@@ -26,9 +26,8 @@ export const renderChooseGroups = async (req, res) => {
 // **************
 export const renderPrikbord = async (req, res) => {
   const user = req.session.user;
-  const myGroups = await database.findMyInterestGroups(user);
-  const allMessages = await database.findAllMessages(req, myGroups);
-
+  const myGroups = req.session.user.groups;
+  const allMessages = await database.findAllMessages(myGroups);
   allMessages.forEach((message) => {
     const group = myGroups.find((group) => group.id === message.group);
     if (group) {

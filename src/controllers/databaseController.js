@@ -24,8 +24,7 @@ export const findAllUsers = async (req, res) => {
   return users;
 };
 
-export const findAllMessages = async (req, res) => {
-  const myGroups = await req.session.user.groups;
+export const findAllMessages = async (myGroups) => {
   const allMessages = await Messages.find({}).lean();
   const myMessages = allMessages.filter((message) =>
     myGroups.includes(message.group)
@@ -59,7 +58,7 @@ export const findAllGroups = async () => {
 };
 
 export const findMyInterestGroups = async (user) => {
-  const userGroups = user.groups;
+  const userGroups = await user.groups;
   const myGroups = await Groups.find({ id: userGroups }).lean();
   return myGroups;
 };
