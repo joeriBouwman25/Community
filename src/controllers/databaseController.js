@@ -25,7 +25,7 @@ export const findAllUsers = async (req, res) => {
 };
 
 export const findAllMessages = async (req, res) => {
-  const myGroups = req.session.user.groups;
+  const myGroups = await req.session.user.groups;
   const allMessages = await Messages.find({}).lean();
   const myMessages = allMessages.filter((message) =>
     myGroups.includes(message.group)

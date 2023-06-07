@@ -3,6 +3,10 @@ const socket = io();
 const ul = document.querySelector("ul");
 const user = document.getElementById("user");
 
+if (window.location.pathname === "/") {
+  localStorage.clear();
+}
+
 const isOnboarding = document.getElementById("progressFooter");
 const onboardingSections = document.querySelectorAll(".onboarding article");
 const nextButton = document.getElementById("nextButton");
