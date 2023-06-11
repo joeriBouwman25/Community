@@ -26,7 +26,7 @@ router
 
   .post("/reactions/*", databaseController.postReaction)
   .post("/update/*", databaseController.updateReaction)
-  .post("/postSettings", databaseController.handlePostsettings)
+  .post("/deletePost", databaseController.deletePost)
   .post("/deleteReaction", databaseController.deleteReaction)
   .post("/chat", uiController.renderChatForAdmin)
   .post("/groups/signup", databaseController.addGroupForUser)

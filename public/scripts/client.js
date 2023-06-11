@@ -1,3 +1,10 @@
+import { nextStep, prevStep } from "./modules/onboarding.js";
+import {
+  handleLike,
+  removeLoadingState,
+  toggleEditMenu,
+} from "./modules/prikbord.js";
+import { toggleTabs } from "./modules/groups.js";
 const socket = io();
 
 const ul = document.querySelector("ul");
@@ -8,59 +15,22 @@ if (window.location.pathname === "/") {
 }
 
 const isOnboarding = document.getElementById("progressFooter");
-const onboardingSections = document.querySelectorAll(".onboarding article");
 const nextButton = document.getElementById("nextButton");
 const prevButton = document.getElementById("prevButton");
 const progress = document.getElementById("progress");
 if (isOnboarding) {
   let progressWidth = 0;
 
-  const nextStep = () => {
-    if (progressWidth === 20) {
-      onboardingSections[4].classList.add("inActive");
-      prevButton.classList.remove("hidden");
-    } else if (progressWidth === 40) {
-      onboardingSections[3].classList.add("inActive");
-    } else if (progressWidth === 60) {
-      onboardingSections[2].classList.add("inActive");
-    } else if (progressWidth === 80) {
-      onboardingSections[1].classList.add("inActive");
-      const newLink = document.createElement("a");
-      newLink.id = "newLink";
-      newLink.href = "/chooseGroups";
-      prevButton.insertAdjacentElement("afterend", newLink);
-      newLink.insertAdjacentElement("beforeend", nextButton);
-    } else if (progressWidth === 100) {
-      onboardingSections[0].classList.add("inActive");
-    }
-  };
-
   nextButton.addEventListener("click", () => {
     progressWidth += 20;
     progress.style.width = progressWidth + "%";
-    nextStep();
+    nextStep(progressWidth);
   });
-
-  const prevStep = () => {
-    if (progressWidth === 0) {
-      onboardingSections[4].classList.remove("inActive");
-      prevButton.classList.add("hidden");
-    } else if (progressWidth === 20) {
-      onboardingSections[3].classList.remove("inActive");
-    } else if (progressWidth === 40) {
-      onboardingSections[2].classList.remove("inActive");
-    } else if (progressWidth === 60) {
-      onboardingSections[1].classList.remove("inActive");
-      document.getElementById("newLink").replaceWith(nextButton);
-    } else if (progressWidth === 80) {
-      onboardingSections[0].classList.remove("inActive");
-    }
-  };
 
   prevButton.addEventListener("click", () => {
     progressWidth -= 20;
     progress.style.width = progressWidth + "%";
-    prevStep();
+    prevStep(progressWidth);
   });
 }
 
@@ -111,42 +81,8 @@ if (showMoreButton) {
 }
 
 const check = document.getElementById("tabNav");
-const groupTabs = document.querySelectorAll(".groupTabs h2");
-const groupSections = document.querySelectorAll(".groups section");
 if (check) {
-  groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
-  groupSections.forEach((section) => section.classList.add("hidden"));
-
-  if (typeof Storage === "undefined") {
-    console.error("Local storage is not supported.");
-  }
-
-  let activeTab = localStorage.getItem("activeTab");
-  if (activeTab !== "ontdekken") {
-    groupTabs[0].classList.add("activeTab");
-    groupSections[0].classList.remove("hidden");
-  } else {
-    groupTabs[1].classList.add("activeTab");
-    groupSections[1].classList.remove("hidden");
-  }
-
-  groupTabs.forEach((tab, index) => {
-    tab.addEventListener("click", () => {
-      if (!tab.classList.contains("activeTab")) {
-        groupTabs.forEach((tab) => tab.classList.remove("activeTab"));
-        groupSections.forEach((section) => section.classList.add("hidden"));
-
-        activeTab === "ontdekken"
-          ? (activeTab = "mijngroepen")
-          : (activeTab = "ontdekken");
-      }
-
-      tab.classList.add("activeTab");
-      groupSections[index].classList.remove("hidden");
-
-      localStorage.setItem("activeTab", activeTab);
-    });
-  });
+  toggleTabs();
 }
 
 const upButton = document.getElementById("newMessage");
@@ -196,23 +132,23 @@ const dialogs = document.getElementsByClassName("dialog");
 const editButtons = document.querySelectorAll("#editable");
 const menu = document.getElementsByClassName("editable");
 const saveButton = document.getElementsByClassName("updateButton");
+const input = document.querySelectorAll("#reaction");
 if (editButtons) {
   editButtons.forEach((button, index) =>
     button.addEventListener("click", () => {
-      menu[index].classList.toggle("hidden");
+      toggleEditMenu(menu, index);
     })
   );
 
   deletePostButtons.forEach((deleteButton, index) => {
     deleteButton.addEventListener("click", (e) => {
-      menu[index].classList.toggle("hidden");
+      toggleEditMenu(menu, index);
       dialogs[index].showModal();
     });
   });
 
   updatePostButtons.forEach((updateButton, index) => {
     updateButton.addEventListener("click", () => {
-      const input = document.querySelectorAll("#reaction");
       const p = document.querySelectorAll("#reactionP");
 
       p[index].classList.add("hidden");
@@ -223,6 +159,10 @@ if (editButtons) {
       menu[index].classList.add("hidden");
     });
   });
+
+  if (document.getElementsByClassName("reaction").length > 0) {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  }
 }
 
 const likeButtons = document.querySelectorAll("footer .likes");
@@ -231,15 +171,7 @@ if (likeButtons) {
     const icon = likeButton.querySelector("i");
     const likes = likeButton.querySelector("p");
     likeButton.addEventListener("click", () => {
-      if (icon.className === "fa solid fa-thumbs-up") {
-        icon.className = "fa-regular fa-thumbs-up";
-        icon.style.color = "#607d8b";
-        likes.textContent--;
-      } else {
-        icon.className = "fa solid fa-thumbs-up";
-        icon.style.color = "#007aff";
-        likes.textContent++;
-      }
+      handleLike(icon, likes);
     });
   });
 }
@@ -309,12 +241,42 @@ socket.on("start", (data) => {
 });
 
 socket.on("chat message", (data) => {
+  localStorage.setItem("message", data.value);
+  localStorage.setItem("user", data.user);
   displayMessage(data);
 });
 
 socket.on("typing", (data) => {
   isTyping(data);
 });
+
+const notification = document.getElementById("notification");
+socket.on("chat notification", (data) => {
+  if (pages) {
+    notification.classList.remove("hidden");
+  }
+});
+const checkInput = (e, element) => {
+  e.target.value.replace(/\s/g, "").length
+    ? element.classList.add("activeButton")
+    : element.classList.remove("activeButton");
+};
+
+const reactionForm = document.querySelector(".reactionForm");
+const updateInput = document.querySelector(".updateInput");
+const updateButton = document.querySelector(".updateForm button");
+const reactionInput = document.querySelector(".reactionForm input");
+const reactionButton = document.querySelector(".reactionForm button");
+if (updateInput) {
+  updateInput.addEventListener("input", (e) => {
+    checkInput(e, updateButton);
+  });
+}
+if (reactionForm) {
+  reactionInput.addEventListener("input", (e) => {
+    checkInput(e, reactionButton);
+  });
+}
 
 const chatForm = document.querySelector(".chatForm");
 const chatInput = document.querySelector(".chatInput");
@@ -330,14 +292,8 @@ if (chatForm) {
     document.body.scrollTop = 0;
   });
 
-  const checkInput = (e) => {
-    e.target.value.replace(/\s/g, "").length
-      ? chatButton.classList.add("activeButton")
-      : chatButton.classList.remove("activeButton");
-  };
-
   chatInput.addEventListener("input", (e) => {
-    checkInput(e);
+    checkInput(e, chatButton);
     socket.emit(
       "typing",
       "De beheerder is aan het typen<span></span><span></span><span></span>"
@@ -398,11 +354,5 @@ export const displayMessage = (data) => {
 
 const loadingState = document.querySelector(".loading");
 if (loadingState) {
-  let stateCheck = setInterval(() => {
-    if (document.readyState === "complete") {
-      clearInterval(stateCheck);
-      document.querySelector(".hidden").classList.remove("hidden");
-      loadingState.classList.add("hidden");
-    }
-  }, 100);
+  removeLoadingState(loadingState);
 }

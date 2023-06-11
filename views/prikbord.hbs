@@ -48,70 +48,79 @@
     <i class="fa-solid fa-arrow-up-long"></i></button>
   <section>
     <ul>
+      <h4>Sorry! Er zijn geen nieuwe berichten meer om te bekijken, Ververs de
+        pagina of kom op een later moment terug</h4>
       {{#each allMessages}}
         <li>
-          <article>
-            <header>
-              <img src="/images/{{avatar}}" alt="profielfoto" />
-              <h3>{{user}}</h3>
-              <p style="color: {{color}}">{{name}}</p>
-              {{#if editable}}
-                <i id="editable" class="fa-light fa-ellipsis-vertical"></i>
-                <nav class="editable hidden">
-                  <ul id="edit">
-                    <li>
-                      <a href="/updatePost/{{_id}}">
-                        <i class="fa-regular fa-pencil"></i>
-                        Bewerken
-                      </a>
-                    </li>
-                    <li id="deletePost">
-                      <i class="fa-regular fa-trash-can"></i>
-                      Verwijderen
-                    </li>
-                  </ul>
-                </nav>
-                <dialog class="dialog">
-                  <form method="POST" action="/postSettings">
-                    <h2>Wil je dit bericht verwijderen?</h2>
-                    <p>
-                      Het verwijderen van een bericht kan niet ongedaan worden
-                      gemaakt
-                    </p>
-                    <div>
-                      <button
-                        value="cancel"
-                        formmethod="dialog"
-                      >Annuleren</button>
-                      <button name="delete" value={{_id}}>Verwijderen</button>
-                    </div>
-                  </form>
-                </dialog>
+            <article>
+              <header>
+                <img src="/images/{{avatar}}" alt="profielfoto" />
+                <h3>{{user}}</h3>
+                <p style="color: {{color}}">{{name}}</p>
+                {{#if editable}}
+                  <i id="editable" class="fa-light fa-ellipsis-vertical"></i>
+                  <nav class="editable hidden">
+                    <ul id="edit">
+                      <li>
+                        <a href="/updatePost/{{_id}}">
+                          <i class="fa-regular fa-pencil"></i>
+                          Bewerken
+                        </a>
+                      </li>
+                      <li id="deletePost">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Verwijderen
+                      </li>
+                    </ul>
+                  </nav>
+                  <dialog class="dialog">
+                    <form method="POST" action="/deletePost">
+                      <h2>Wil je dit bericht verwijderen?</h2>
+                      <p>
+                        Het verwijderen van een bericht kan niet ongedaan worden
+                        gemaakt
+                      </p>
+                      <div>
+                        <button
+                          value="cancel"
+                          formmethod="dialog"
+                        >Annuleren</button>
+                        <button name="delete" value={{_id}}>Verwijderen</button>
+                      </div>
+                    </form>
+                  </dialog>
+                {{/if}}
+              </header>
+              <a href="/reactions/{{_id}}"></a>
+              <h2>{{title}}</h2>
+              <p class="prikbordMessage">{{message}}</p>
+              {{#if file}}
+                <img
+                  src="/images/{{file}}"
+                  alt="img"
+                  width="200"
+                  height="200"
+                />
               {{/if}}
-            </header>
-            <h2>{{title}}</h2>
-            <p class="prikbordMessage">{{message}}</p>
-            {{#if file}}
-              <img src="/images/{{file}}" alt="img" width="200" height="200" />
-            {{/if}}
-            {{#if reactions}}
-              <a class="reactionCount" href="/reactions/{{_id}}">
-                <p class="reactionCount">{{reactions.length}} reacties</p>
-              </a>
-            {{/if}}
-            <footer>
-              <label class="likes" for="">
-                <i class="fa-regular fa-thumbs-up"></i>
-                <p>3</p>
-              </label>
-              <a href="/reactions/{{_id}}">
-                <label for="">
-                  <i class="fa-regular fa-message"></i>
-                  Reageer
+              {{#if reactions}}
+                <a class="reactionCount" href="/reactions/{{_id}}">
+                  <p class="reactionCount">{{reactions.length}} reacties</p>
+                </a>
+              {{/if}}
+              <footer>
+                <label class="likes" for="">
+                  <i class="fa-regular fa-thumbs-up"></i>
+                  <p>3</p>
                 </label>
-              </a>
-            </footer>
-          </article>
+                <a href="/reactions/{{_id}}">
+                  <label for="">
+                    <i class="fa-regular fa-message"></i>
+                    Reageer
+                  </label>
+                </a>
+              </footer>
+            </article>
+          </a>
         </li>
       {{/each}}
     </ul>

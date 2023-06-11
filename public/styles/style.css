@@ -1,6 +1,6 @@
 :root {
   --primary-color: #007aff;
-  --secondary-color: #1f8d84;
+  --secondary-color: #3aa7a3;
   --text-color: #1b2032;
   --danger: #f44336;
 
@@ -93,6 +93,12 @@ h3 {
   margin: 0;
 }
 
+h4 {
+  text-align: center;
+  color: #979797;
+  font-size: 0.9rem;
+}
+
 button {
   border: none;
   box-shadow: var(--backdrop-shadow);
@@ -180,6 +186,7 @@ article {
 .prikbord section ul {
   display: flex;
   flex-direction: column-reverse;
+  margin-bottom: 8em;
 }
 
 .prikbord article {
@@ -212,7 +219,7 @@ article {
   font-weight: 300;
   color: #080808;
   padding: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   grid-area: 2;
 }
 
@@ -281,6 +288,11 @@ article {
 
 .prikbord footer label p {
   margin: 0 0.3em;
+  padding: 1em 0;
+}
+
+.prikbord footer label .fa-thumbs-up {
+  font-size: 1.2rem;
 }
 
 .prikbord form {
@@ -300,7 +312,7 @@ article {
   width: 100%;
 }
 
-.prikbord form button {
+.reactionForm button {
   border: none;
   display: flex;
   padding: 0.5em 1em;
@@ -310,6 +322,10 @@ article {
   color: white;
   font-size: 1rem;
   align-items: center;
+  transform: scale(0);
+  transition: 0.2s;
+  position: absolute;
+  right: 1em;
 }
 
 .prikbord form button i {
@@ -335,6 +351,16 @@ article {
   border-radius: 50%;
   border-style: none;
   text-transform: none;
+}
+
+#notification {
+  width: 0.8em;
+  height: 0.8em;
+  background: var(--danger);
+  border-radius: 2em;
+  top: 0.8em;
+  left: calc(70.5% - 0em);
+  position: absolute;
 }
 
 dialog {
@@ -640,15 +666,18 @@ dialog form button:last-of-type {
 .reaction .updateForm {
   width: 100%;
   justify-content: space-between;
+  position: relative;
 }
 
 .reactions .updateButton {
-  border: 1px solid var(--primary-color);
   padding: 0.5em 1em;
-  color: var(--primary-color);
+  color: var(--secondary-color);
   background-color: transparent;
   border-radius: 2em;
-  min-width: 7em;
+  position: absolute !important;
+  right: 0.45em;
+  transform: scale(0);
+  transition: 0.2s;
 }
 
 .reactions #edit {
@@ -737,7 +766,7 @@ dialog form button:last-of-type {
   padding: 0.5em 1em;
   width: 80%;
   opacity: 0;
-  transition: 1s;
+  transition: 2s;
   box-shadow: var(--backdrop-shadow);
 }
 
@@ -862,7 +891,7 @@ header img {
 }
 
 .onboarding svg {
-  width: 40%;
+  width: 30%;
   fill: var(--primary-color);
   text-align: center;
   margin: 1em auto;
@@ -870,7 +899,18 @@ header img {
 }
 
 .onboarding h3 {
-  padding: 0.5em 1em;
+  padding: 0.8em 1em;
+  font-weight: 100;
+  border-bottom: var(--divider);
+}
+
+.onboarding #acceptVoorwaarden {
+  margin: 1em auto;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column-reverse;
 }
 
 .onboarding article h1 {
@@ -905,20 +945,19 @@ header img {
   position: absolute;
   bottom: 10vh;
   font-size: 13px;
-  color: #606060;
+  color: #565656;
   font-weight: 600;
 }
 
 .onboarding button {
-  color: var(--secondary-color);
-  border: 1px solid var(--secondary-color);
+  color: #fff;
   padding: 0.5em 1em;
   font-size: 0.9rem;
   line-height: 1.75;
   border-radius: 2em;
   margin: 0 1em;
   min-width: 6.5em;
-  background-color: transparent;
+  background-color: var(--secondary-color);
 }
 
 .onboarding section > h1 {
@@ -928,12 +967,8 @@ header img {
 }
 
 .onboarding ul {
-  list-style-type: disc;
   padding: 0 1em;
-}
-
-.onboarding ul li::marker {
-  color: var(--primary-color);
+  margin: 0 auto;
 }
 
 #progressFooter {
@@ -964,7 +999,7 @@ header img {
 .index h2 {
   margin: 1em;
   font-size: 1.5em;
-  color: #0070ff;
+  color: var(--primary-color);
   text-align: center;
 }
 
@@ -982,7 +1017,7 @@ header img {
 .progressbar {
   height: 0.2em;
   width: 100%;
-  background-color: #c5c5c5;
+  background-color: #979797;
   margin: 1em 0;
 }
 
@@ -1786,10 +1821,6 @@ header img {
   padding: 10px;
   background-color: #ccc;
   cursor: pointer;
-}
-
-.tab:hover {
-  background-color: #ddd;
 }
 
 .tab-content {

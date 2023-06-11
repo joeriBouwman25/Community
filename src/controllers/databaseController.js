@@ -24,7 +24,8 @@ export const findAllUsers = async (req, res) => {
   return users;
 };
 
-export const findAllMessages = async (myGroups) => {
+export const findAllMessages = async (res, req) => {
+  const myGroups = req.session.user.groups;
   const allMessages = await Messages.find({}).lean();
   const myMessages = allMessages.filter((message) =>
     myGroups.includes(message.group)
@@ -131,7 +132,7 @@ export const uploadGroups = async (req, res) => {
   await res.redirect("/prikbord");
 };
 
-export const handlePostsettings = async (req, res) => {
+export const deletePost = async (req, res) => {
   await Messages.deleteOne({
     _id: req.body.delete,
   });
