@@ -11,11 +11,17 @@
       action="/post"
       method="post"
       enctype="multipart/form-data"
+      autocomplete="off"
     >
       <label for="title">Titel</label>
-      <input type="text" id="title" name="title" required />
+      <input type="text" id="title" name="title" required autocomplete="off" />
       <label for="message">Bericht</label>
-      <textarea id="message" name="message" required></textarea>
+      <textarea
+        id="message"
+        name="message"
+        required
+        autocomplete="off"
+      ></textarea>
       <label for="">Afbeelding</label>
       <fieldset id="imageField">
         <label class="upload" for="image">

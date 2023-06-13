@@ -11,6 +11,7 @@
       action="/post/update/{{post._id}}"
       method="post"
       enctype="multipart/form-data"
+      autocomplete="off"
     >
       <label for="title">Titel</label>
       <input
@@ -19,9 +20,15 @@
         id="title"
         name="title"
         required
+        autocomplete="off"
       />
       <label for="message">Bericht</label>
-      <textarea id="message" name="message" required>{{post.message}}</textarea>
+      <textarea
+        id="message"
+        name="message"
+        autocomplete="off"
+        required
+      >{{post.message}} </textarea>
       <label for="">Afbeelding</label>
       <fieldset id="imageField">
         <label class="upload" for="image">

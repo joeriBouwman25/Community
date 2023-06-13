@@ -1463,6 +1463,10 @@ header img {
   object-fit: cover;
 }
 
+.discover {
+  margin-bottom: 56px !important;
+}
+
 .discover ul li article .afmelden {
   color: var(--danger);
   border: 1px solid var(--danger);

@@ -22,9 +22,9 @@
             <img src="/images/{{avatar}}" alt="profielfoto" />
             <article>
               <h3>{{user}}</h3>
-              <form class="updateForm" action="/update/{{@root.message._id}}" method="post">
+              <form class="updateForm" action="/update/{{@root.message._id}}" method="post" autocomplete="off">
                 {{#if editable}}
-                <input  class="hidden" name="reactionId" value={{reactionID}}>
+                <input  class="hidden" name="reactionId" value={{reactionID}} autocomplete="off">
                 <input type="text" disabled class="updateInput hidden" value="{{reaction}}" name="update" id="reaction"/>
                 <p id="reactionP">{{reaction}}</p>
                 <button class="updateButton hidden"><i class="fa-regular fa-paper-plane-top"></i></button>
@@ -74,7 +74,7 @@
     {{/if}}
     <footer>
       <form class="reactionForm" action="/reactions/{{message._id}}" method="POST">
-        <input type="text" name="reaction" placeholder="Plaats een reactie" id="reaction" />
+        <input type="text" name="reaction" placeholder="Plaats een reactie" id="reaction" autocomplete="off"/>
         <button><i class="fa-regular fa-paper-plane-top"></i></button>
       </form>
     </footer>
